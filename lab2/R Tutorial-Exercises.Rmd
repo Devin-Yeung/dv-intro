@@ -168,7 +168,7 @@ print(arr[2, , 2])
 matrix_sum <- apply(arr, c(1, 2), sum)
 print(matrix_sum)
 # Q4: Sort the columns of the matrix
-sorted_matrix <- apply(arr, c(1, 2), sort)
+sorted_matrix <- apply(arr, c(1, 3), sort)
 print(sorted_matrix)
 ```
 
