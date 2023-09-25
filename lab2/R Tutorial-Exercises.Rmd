@@ -272,19 +272,23 @@ print(nrow(data))
 $\color{red}{\text{In class exercise}}$
 ```{r}
 # Q1: print the first 11 rows of data
-
+print(head(data, 11))
 # Q2: Get the max gdp from data frame.
-
+max_gdp <- max(data$gdp)
+print(max_gdp)
 # Q3: Get the country detail with max gdp
-
+country_max_gdp <- data[data$gdp == max_gdp,]
+print(country_max_gdp)
 # Q4: write the first 20 rows of data to a txt file "country20.txt".
-
+write.table(head(data, 20), "country20.txt", sep = "\t", quote = FALSE)
 # Q5: write the first 20 rows of data to a csv file "country20.csv".
-
+write.csv(head(data, 20), "country20.csv", row.names = FALSE)
 # Q6: read country20.csv and check the results
-
+country20 <- read.csv("country20.csv")
+print(country20)
 # Q7: What is the mean of GDP for the developing countries which have death rate higher than 10?
-
+high_death_rate_gdp <- data[data$deathrate > 10,]$gdp
+print(mean(high_death_rate_gdp))
 ```
 
 
