@@ -208,9 +208,6 @@ print(result)
 ```
 $\color{red}{\text{In class exercise}}$
 ```{r}
-
-```
-```{r}
 #Q1: Given column vectors, use cbind() to combine multiple vectors column by column to form a new data frame
 car_models <- c('Maruti', 'Hyundai', 'Tata',
                 'Ford', 'Nissan', 'Toyota')
@@ -220,7 +217,13 @@ car_color <- c('Red', 'Blue', 'Red',
                'Red', 'Blue', 'Red')
 year <- c(2001, 2011, 2013, 2012, 2021, 2021)
 # write your answer here:
-
+car_data <- data.frame(
+        car_model = car_models,
+        car_type = car_type,
+        car_color = car_color,
+        year = year
+)
+print(car_data)
 ```
 
 
