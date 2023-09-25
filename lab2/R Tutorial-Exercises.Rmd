@@ -115,7 +115,7 @@ names(list_data) <- c("1st Quarter", "A_Matrix", "A Inner list")
 $\color{red}{\text{In class exercise}}$
 ```{r}
 # Q1: Access the first element of the list using position.
-print(list_data[1])
+print(list_data[[1]])
 # Q2: Access the last element of the list using name.
 print(list_data$`A Inner list`)
 # Q3: Add element "New element" at the end of the list.
@@ -217,12 +217,8 @@ car_color <- c('Red', 'Blue', 'Red',
                'Red', 'Blue', 'Red')
 year <- c(2001, 2011, 2013, 2012, 2021, 2021)
 # write your answer here:
-car_data <- data.frame(
-  car_model = car_models,
-  car_type = car_type,
-  car_color = car_color,
-  year = year
-)
+car_data <- cbind(car_models, car_type, car_color, year)
+colnames <- c("car_models", "car_type", "car_color", "year")
 print(car_data)
 ```
 
