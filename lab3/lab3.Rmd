@@ -105,7 +105,7 @@ $\color{red}{\text{In class exercise}}$
 ```{r}
 # keep all variables except birth_year and gender
 # write your answer here
-
+newdata <- select(starwars, -birth_year, -gender)
 ```
 
 ## 2.2 Selecting observations
@@ -139,7 +139,9 @@ $\color{red}{\text{In class exercise}}$
 ```{r}
 # select individuals who is human and higher than 1.7
 # write your answer here
-
+newdata <- filter(starwars,
+                  species == "Human",
+                  height >= 170)
 ```
 
 ## 2.3 Creating/Recoding variables
