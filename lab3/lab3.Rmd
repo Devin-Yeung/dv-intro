@@ -44,13 +44,13 @@ Salaries2 <- read_tsv("salaries.txt")
 These function assume that the first line of data contains the variable names, values are separated by commas or tabs respectively, and that missing data are represented by blanks. For example, the first few lines of the comma delimited file looks like this.
 
 ```{r eval=FALSE, message=TRUE}
-"rank","discipline","yrs.since.phd","yrs.service","sex","salary"
-"Prof","B",19,18,"Male",139750
-"Prof","B",20,16,"Male",173200
-"AsstProf","B",4,3,"Male",79750
-"Prof","B",45,39,"Male",115000
-"Prof","B",40,41,"Male",141500
-"AssocProf","B",6,6,"Male",97000
+# "rank","discipline","yrs.since.phd","yrs.service","sex","salary"
+# "Prof","B",19,18,"Male",139750
+# "Prof","B",20,16,"Male",173200
+# "AsstProf","B",4,3,"Male",79750
+# "Prof","B",45,39,"Male",115000
+# "Prof","B",40,41,"Male",141500
+# "AssocProf","B",6,6,"Male",97000
 ```
 
 
