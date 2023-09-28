@@ -61,7 +61,7 @@ The ```readxl``` package can import data from Excel workbooks. Both xls and xlsx
 library(readxl)
 
 # import data from an Excel workbook
-Salaries3 <- read_excel("salaries.xlsx", sheet=1)
+Salaries3 <- read_excel("salaries.xlsx", sheet = 1)
 ```
 Since workbooks can have more than one worksheet, you can specify the one you want with the sheet option. The default is ```sheet=1```.
 
@@ -106,6 +106,7 @@ $\color{red}{\text{In class exercise}}$
 # keep all variables except birth_year and gender
 # write your answer here
 newdata <- select(starwars, -birth_year, -gender)
+print(newdata)
 ```
 
 ## 2.2 Selecting observations
@@ -116,23 +117,23 @@ The ```filter``` function allows you to limit your dataset to observations (rows
 library(dplyr)
 
 # select females
-newdata <- filter(starwars, 
+newdata <- filter(starwars,
                   gender == "feminine")
 
 # select females that are from Alderaan
-newdata <- filter(starwars, 
-                  gender == "feminine" & 
-                  homeworld == "Alderaan")
+newdata <- filter(starwars,
+                  gender == "feminine" &
+                    homeworld == "Alderaan")
 
 
 # select individuals that are from Alderaan, Coruscant, or Endor
-newdata <- filter(starwars, 
-                  homeworld == "Alderaan" | 
-                  homeworld == "Coruscant" | 
-                  homeworld == "Endor")
+newdata <- filter(starwars,
+                  homeworld == "Alderaan" |
+                    homeworld == "Coruscant" |
+                    homeworld == "Endor")
 
 # this can be written more succinctly as
-newdata <- filter(starwars, 
+newdata <- filter(starwars,
                   homeworld %in% c("Alderaan", "Coruscant", "Endor"))
 ```
 $\color{red}{\text{In class exercise}}$
@@ -142,6 +143,7 @@ $\color{red}{\text{In class exercise}}$
 newdata <- filter(starwars,
                   species == "Human",
                   height >= 170)
+print(newdata)
 ```
 
 ## 2.3 Creating/Recoding variables
@@ -152,9 +154,9 @@ library(dplyr)
 
 # convert height in centimeters to inches, 
 # and mass in kilograms to pounds
-newdata <- mutate(starwars, 
+newdata <- mutate(starwars,
                   height = height * 0.394,
-                  mass   = mass   * 2.205)
+                  mass = mass * 2.205)
 ```
 
 The ```ifelse``` function (part of base R) can be used for recoding data. The format is ```ifelse(test, return if TRUE, return if FALSE)```.
@@ -170,8 +172,8 @@ library(dplyr)
 newdata <- mutate(starwars, heightcat = ifelse(height > 180, "tall", "short"))
 
 # set heights greater than 200 or less than 75 to missing
-newdata <- mutate(starwars, 
-                  height = ifelse(height < 75 | height > 200, 
+newdata <- mutate(starwars,
+                  height = ifelse(height < 75 | height > 200,
                                   NA, height))
 ```
 
@@ -179,7 +181,9 @@ $\color{red}{\text{In class exercise}}$
 ```{r}
 # convert any eye color that is not black, blue or brown, to other
 # write your answer here
-
+allowed_eye_colors <- c("black", "blue", "brown")
+newdata <- mutate(starwars, eye_color = ifelse(eye_color %in% allowed_eye_colors, eye_color, "other"))
+print(newdata)
 ```
 
 
@@ -189,18 +193,18 @@ The ```summarize``` function can be used to reduce multiple values down to a sin
 ```{r}
 library(dplyr)
 # calculate mean height and mass
-newdata <- summarize(starwars, 
-                     mean_ht = mean(height, na.rm=TRUE),
-                     mean_mass = mean(mass, na.rm=TRUE))
+newdata <- summarize(starwars,
+                     mean_ht = mean(height, na.rm = TRUE),
+                     mean_mass = mean(mass, na.rm = TRUE))
 newdata
 ```
 
 ```{r}
 # calculate mean height and weight by gender
 newdata <- group_by(starwars, gender)
-newdata <- summarize(newdata, 
-                     mean_ht = mean(height, na.rm=TRUE), 
-                     mean_wt = mean(mass, na.rm=TRUE))
+newdata <- summarize(newdata,
+                     mean_ht = mean(height, na.rm = TRUE),
+                     mean_wt = mean(mass, na.rm = TRUE))
 print(newdata)
 ```
 
@@ -215,7 +219,7 @@ newdata <- group_by(newdata, species)
 newdata <- summarize(newdata, mean_ht = mean(height, na.rm = TRUE))
 
 # this can be written as
-newdata <- starwars %>% 
+newdata <- starwars %>%
   filter(gender == "feminine") %>%
   group_by(species) %>%
   summarize(mean_ht = mean(height, na.rm = TRUE))
@@ -240,9 +244,9 @@ wide_data
 
 
 # convert a wide dataset to a long dataset
-long_data <- gather(wide_data, 
-                    key="variable", 
-                    value="value", 
+long_data <- gather(wide_data,
+                    key = "variable",
+                    value = "value",
                     sex:income)
 print(long_data)
 ```
@@ -263,10 +267,10 @@ Real data are likely to contain missing values. There are three basic approaches
 In feature selection, you delete variables (columns) that contain too many missing values.
 ```{r}
 # loading data
-data(msleep, package="ggplot2")
+data(msleep, package = "ggplot2")
 
 # what is the proportion of missing data for each variable?
-pctmiss <- colSums(is.na(msleep))/nrow(msleep)
+pctmiss <- colSums(is.na(msleep)) / nrow(msleep)
 round(pctmiss, 2)
 ```
 
@@ -286,7 +290,7 @@ Imputation involves replacing missing values with “reasonable” guesses about
 library(VIM)
 
 # Impute missing values using the 5 nearest neighbors
-newdata <- kNN(msleep, k=5)
+newdata <- kNN(msleep, k = 5)
 ```
 
 Basically, for each case with a missing value, the k most similar cases not having a missing value are selected. If the missing value is numeric, the mean of those k cases is used as the imputed value. If the missing value is categorical, the most frequent value from the k cases is used. The process iterates over cases and variables until the results converge (become stable).
