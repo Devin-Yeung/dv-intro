@@ -716,16 +716,41 @@ library(readr)
 
 # Please read Salaries data from the file Salaries.csv
 # write your answer here
-
-
-# Select the female professors whose salaries are between 80000 and 100000
+df &lt;- read_csv(&quot;salaries.csv&quot;)</code></pre>
+<pre><code>## Rows: 397 Columns: 6
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (3): rank, discipline, sex
+## dbl (3): yrs.since.phd, yrs.service, salary
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code># Select the female professors whose salaries are between 80000 and 100000
 # write your answer here
-
-# Calculate the mean of income of professors grouped by sex
+female_high_salaries &lt;- df %&gt;% filter(
+  rank == &#39;Prof&#39; &amp;
+    sex == &#39;Female&#39; &amp;
+    (salary &gt;= 80000 &amp; salary &lt;= 100000)
+)
+print(female_high_salaries)</code></pre>
+<pre><code>## # A tibble: 2 × 6
+##   rank  discipline yrs.since.phd yrs.service sex    salary
+##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
+## 1 Prof  A                     29          27 Female  91000
+## 2 Prof  A                     17          11 Female  90450</code></pre>
+<pre class="r"><code># Calculate the mean of income of professors grouped by sex
 # write your answer here
+mean_income_by_sex &lt;- df %&gt;%
+  group_by(sex) %&gt;%
+  summarize(mean_income = mean(salary))
 
-
-# using pipe %&gt;% operator in your answer for last question</code></pre>
+print(mean_income_by_sex)</code></pre>
+<pre><code>## # A tibble: 2 × 2
+##   sex    mean_income
+##   &lt;chr&gt;        &lt;dbl&gt;
+## 1 Female     101002.
+## 2 Male       115090.</code></pre>
+<pre class="r"><code># using pipe %&gt;% operator in your answer for last question</code></pre>
 </div>
 </div>
 </div>
