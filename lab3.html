@@ -411,7 +411,7 @@ Salaries2 &lt;- read_tsv(&quot;salaries.txt&quot;)</code></pre>
 library(readxl)
 
 # import data from an Excel workbook
-Salaries3 &lt;- read_excel(&quot;salaries.xlsx&quot;, sheet=1)</code></pre>
+Salaries3 &lt;- read_excel(&quot;salaries.xlsx&quot;, sheet = 1)</code></pre>
 <p>Since workbooks can have more than one worksheet, you can specify the one you want with the sheet option. The default is <code>sheet=1</code>.</p>
 </div>
 <div id="statistical-packages" class="section level2">
@@ -455,7 +455,23 @@ newdata &lt;- select(starwars, name, mass:species)</code></pre>
 <p><span class="math inline">\(\color{red}{\text{In class exercise}}\)</span></p>
 <pre class="r"><code># keep all variables except birth_year and gender
 # write your answer here
-newdata &lt;- select(starwars, -birth_year, -gender)</code></pre>
+newdata &lt;- select(starwars, -birth_year, -gender)
+print(newdata)</code></pre>
+<pre><code>## # A tibble: 87 × 12
+##    name     height  mass hair_color skin_color eye_color sex   homeworld species
+##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;  
+##  1 Luke Sk…    172    77 blond      fair       blue      male  Tatooine  Human  
+##  2 C-3PO       167    75 &lt;NA&gt;       gold       yellow    none  Tatooine  Droid  
+##  3 R2-D2        96    32 &lt;NA&gt;       white, bl… red       none  Naboo     Droid  
+##  4 Darth V…    202   136 none       white      yellow    male  Tatooine  Human  
+##  5 Leia Or…    150    49 brown      light      brown     fema… Alderaan  Human  
+##  6 Owen La…    178   120 brown, gr… light      blue      male  Tatooine  Human  
+##  7 Beru Wh…    165    75 brown      light      blue      fema… Tatooine  Human  
+##  8 R5-D4        97    32 &lt;NA&gt;       white, red red       none  Tatooine  Droid  
+##  9 Biggs D…    183    84 black      light      brown     male  Tatooine  Human  
+## 10 Obi-Wan…    182    77 auburn, w… fair       blue-gray male  Stewjon   Human  
+## # ℹ 77 more rows
+## # ℹ 3 more variables: films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
 <div id="selecting-observations" class="section level2">
 <h2>2.2 Selecting observations</h2>
@@ -464,30 +480,47 @@ newdata &lt;- select(starwars, -birth_year, -gender)</code></pre>
 library(dplyr)
 
 # select females
-newdata &lt;- filter(starwars, 
+newdata &lt;- filter(starwars,
                   gender == &quot;feminine&quot;)
 
 # select females that are from Alderaan
-newdata &lt;- filter(starwars, 
-                  gender == &quot;feminine&quot; &amp; 
-                  homeworld == &quot;Alderaan&quot;)
+newdata &lt;- filter(starwars,
+                  gender == &quot;feminine&quot; &amp;
+                    homeworld == &quot;Alderaan&quot;)
 
 
 # select individuals that are from Alderaan, Coruscant, or Endor
-newdata &lt;- filter(starwars, 
-                  homeworld == &quot;Alderaan&quot; | 
-                  homeworld == &quot;Coruscant&quot; | 
-                  homeworld == &quot;Endor&quot;)
+newdata &lt;- filter(starwars,
+                  homeworld == &quot;Alderaan&quot; |
+                    homeworld == &quot;Coruscant&quot; |
+                    homeworld == &quot;Endor&quot;)
 
 # this can be written more succinctly as
-newdata &lt;- filter(starwars, 
+newdata &lt;- filter(starwars,
                   homeworld %in% c(&quot;Alderaan&quot;, &quot;Coruscant&quot;, &quot;Endor&quot;))</code></pre>
 <p><span class="math inline">\(\color{red}{\text{In class exercise}}\)</span></p>
 <pre class="r"><code># select individuals who is human and higher than 1.7
 # write your answer here
 newdata &lt;- filter(starwars,
                   species == &quot;Human&quot;,
-                  height &gt;= 170)</code></pre>
+                  height &gt;= 170)
+print(newdata)</code></pre>
+<pre><code>## # A tibble: 23 × 14
+##    name     height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu…
+##  2 Darth V…    202   136 none       white      yellow          41.9 male  mascu…
+##  3 Owen La…    178   120 brown, gr… light      blue            52   male  mascu…
+##  4 Biggs D…    183    84 black      light      brown           24   male  mascu…
+##  5 Obi-Wan…    182    77 auburn, w… fair       blue-gray       57   male  mascu…
+##  6 Anakin …    188    84 blond      fair       blue            41.9 male  mascu…
+##  7 Wilhuff…    180    NA auburn, g… fair       blue            64   male  mascu…
+##  8 Han Solo    180    80 brown      fair       brown           29   male  mascu…
+##  9 Wedge A…    170    77 brown      fair       hazel           21   male  mascu…
+## 10 Jek Ton…    180   110 brown      fair       blue            NA   male  mascu…
+## # ℹ 13 more rows
+## # ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
 <div id="creatingrecoding-variables" class="section level2">
 <h2>2.3 Creating/Recoding variables</h2>
@@ -497,9 +530,9 @@ library(dplyr)
 
 # convert height in centimeters to inches, 
 # and mass in kilograms to pounds
-newdata &lt;- mutate(starwars, 
+newdata &lt;- mutate(starwars,
                   height = height * 0.394,
-                  mass   = mass   * 2.205)</code></pre>
+                  mass = mass * 2.205)</code></pre>
 <p>The <code>ifelse</code> function (part of base R) can be used for recoding data. The format is <code>ifelse(test, return if TRUE, return if FALSE)</code>.</p>
 <pre class="r"><code># loading package
 library(dplyr)
@@ -511,21 +544,40 @@ library(dplyr)
 newdata &lt;- mutate(starwars, heightcat = ifelse(height &gt; 180, &quot;tall&quot;, &quot;short&quot;))
 
 # set heights greater than 200 or less than 75 to missing
-newdata &lt;- mutate(starwars, 
-                  height = ifelse(height &lt; 75 | height &gt; 200, 
+newdata &lt;- mutate(starwars,
+                  height = ifelse(height &lt; 75 | height &gt; 200,
                                   NA, height))</code></pre>
 <p><span class="math inline">\(\color{red}{\text{In class exercise}}\)</span></p>
 <pre class="r"><code># convert any eye color that is not black, blue or brown, to other
-# write your answer here</code></pre>
+# write your answer here
+allowed_eye_colors &lt;- c(&quot;black&quot;, &quot;blue&quot;, &quot;brown&quot;)
+newdata &lt;- mutate(starwars, eye_color = ifelse(eye_color %in% allowed_eye_colors, eye_color, &quot;other&quot;))
+print(newdata)</code></pre>
+<pre><code>## # A tibble: 87 × 14
+##    name     height  mass hair_color skin_color eye_color birth_year sex   gender
+##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu…
+##  2 C-3PO       167    75 &lt;NA&gt;       gold       other          112   none  mascu…
+##  3 R2-D2        96    32 &lt;NA&gt;       white, bl… other           33   none  mascu…
+##  4 Darth V…    202   136 none       white      other           41.9 male  mascu…
+##  5 Leia Or…    150    49 brown      light      brown           19   fema… femin…
+##  6 Owen La…    178   120 brown, gr… light      blue            52   male  mascu…
+##  7 Beru Wh…    165    75 brown      light      blue            47   fema… femin…
+##  8 R5-D4        97    32 &lt;NA&gt;       white, red other           NA   none  mascu…
+##  9 Biggs D…    183    84 black      light      brown           24   male  mascu…
+## 10 Obi-Wan…    182    77 auburn, w… fair       other           57   male  mascu…
+## # ℹ 77 more rows
+## # ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
 <div id="summarizing-data" class="section level2">
 <h2>2.4 Summarizing data</h2>
 <p>The <code>summarize</code> function can be used to reduce multiple values down to a single value (such as a mean). It is often used in conjunction with the <code>by_group</code> function, to calculate statistics by group. In the code below, the <code>na.rm=TRUE</code> option is used to drop missing values before calculating the means.</p>
 <pre class="r"><code>library(dplyr)
 # calculate mean height and mass
-newdata &lt;- summarize(starwars, 
-                     mean_ht = mean(height, na.rm=TRUE),
-                     mean_mass = mean(mass, na.rm=TRUE))
+newdata &lt;- summarize(starwars,
+                     mean_ht = mean(height, na.rm = TRUE),
+                     mean_mass = mean(mass, na.rm = TRUE))
 newdata</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##   mean_ht mean_mass
@@ -533,9 +585,9 @@ newdata</code></pre>
 ## 1    174.      97.3</code></pre>
 <pre class="r"><code># calculate mean height and weight by gender
 newdata &lt;- group_by(starwars, gender)
-newdata &lt;- summarize(newdata, 
-                     mean_ht = mean(height, na.rm=TRUE), 
-                     mean_wt = mean(mass, na.rm=TRUE))
+newdata &lt;- summarize(newdata,
+                     mean_ht = mean(height, na.rm = TRUE),
+                     mean_wt = mean(mass, na.rm = TRUE))
 print(newdata)</code></pre>
 <pre><code>## # A tibble: 3 × 3
 ##   gender    mean_ht mean_wt
@@ -555,7 +607,7 @@ newdata &lt;- group_by(newdata, species)
 newdata &lt;- summarize(newdata, mean_ht = mean(height, na.rm = TRUE))
 
 # this can be written as
-newdata &lt;- starwars %&gt;% 
+newdata &lt;- starwars %&gt;%
   filter(gender == &quot;feminine&quot;) %&gt;%
   group_by(species) %&gt;%
   summarize(mean_ht = mean(height, na.rm = TRUE))</code></pre>
@@ -579,9 +631,9 @@ wide_data</code></pre>
 ## 2  2  Bob   Male  35  90000
 ## 3  3 Mary Female  48 150000</code></pre>
 <pre class="r"><code># convert a wide dataset to a long dataset
-long_data &lt;- gather(wide_data, 
-                    key=&quot;variable&quot;, 
-                    value=&quot;value&quot;, 
+long_data &lt;- gather(wide_data,
+                    key = &quot;variable&quot;,
+                    value = &quot;value&quot;,
                     sex:income)
 print(long_data)</code></pre>
 <pre><code>##   id name variable  value
@@ -613,10 +665,10 @@ print(wide_data)</code></pre>
 <h3>2.7.1 Feature selection</h3>
 <p>In feature selection, you delete variables (columns) that contain too many missing values.</p>
 <pre class="r"><code># loading data
-data(msleep, package=&quot;ggplot2&quot;)
+data(msleep, package = &quot;ggplot2&quot;)
 
 # what is the proportion of missing data for each variable?
-pctmiss &lt;- colSums(is.na(msleep))/nrow(msleep)
+pctmiss &lt;- colSums(is.na(msleep)) / nrow(msleep)
 round(pctmiss, 2)</code></pre>
 <pre><code>##         name        genus         vore        order conservation  sleep_total 
 ##         0.00         0.00         0.08         0.00         0.35         0.00 
@@ -654,7 +706,7 @@ library(VIM)</code></pre>
 ## 
 ##     sleep</code></pre>
 <pre class="r"><code># Impute missing values using the 5 nearest neighbors
-newdata &lt;- kNN(msleep, k=5)</code></pre>
+newdata &lt;- kNN(msleep, k = 5)</code></pre>
 <p>Basically, for each case with a missing value, the k most similar cases not having a missing value are selected. If the missing value is numeric, the mean of those k cases is used as the imputed value. If the missing value is categorical, the most frequent value from the k cases is used. The process iterates over cases and variables until the results converge (become stable).</p>
 <p><span class="math inline">\(\color{red}{\text{ # 3 In-class exercise}}\)</span></p>
 <p>Please download the <code>Salaries.txt</code> from iSpace and complete the following requirements.</p>
