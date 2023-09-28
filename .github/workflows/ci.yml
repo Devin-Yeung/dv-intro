@@ -22,15 +22,5 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 2
-          packages: |
-            any::ggplot2
-            any::readr
-            any::readxl
-            any::haven
-            any::dplyr
-            any::tidyr
-            any::VIM
-            any::rmarkdown
-            any::sessioninfo
       - name: Render RMarkdown
         run: Rscript utils/doc.R
