@@ -305,15 +305,24 @@ library(readr)
 
 # Please read Salaries data from the file Salaries.csv
 # write your answer here
-
+df <- read_csv("salaries.csv")
 
 # Select the female professors whose salaries are between 80000 and 100000
 # write your answer here
+female_high_salaries <- df %>% filter(
+  rank == 'Prof' &
+    sex == 'Female' &
+    (salary >= 80000 & salary <= 100000)
+)
+print(female_high_salaries)
 
 # Calculate the mean of income of professors grouped by sex
 # write your answer here
+mean_income_by_sex <- df %>%
+  group_by(sex) %>%
+  summarize(mean_income = mean(salary))
 
-
+print(mean_income_by_sex)
 # using pipe %>% operator in your answer for last question
 
 
