@@ -146,6 +146,21 @@ The average is 885.5
 
 ```{r}
 # write your answer here
+Fibonacci <- function(n) {
+  F <- c(1, 1)
+  if (n <= 2) {
+    return(F[1:n])
+  } else {
+    for (i in 3:n) {
+      next_term <- F[i - 1] + F[i - 2]
+      F <- c(F, next_term)
+    }
+  }
+
+  af <- mean(F) # write your answer here
+  cat(paste('The first', n, 'Fibonacci numbers are:'), '\n', F[1:n], '\n', paste('the average is', af))
+}
+Fibonacci(20)
 ```
 
 
