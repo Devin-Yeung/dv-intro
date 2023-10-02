@@ -111,7 +111,32 @@ f. What is the correlation coefficient between GDP and birthrate?  Discuss the r
 
 ```{r}
 # Write your answer here
+df <- read.table("country.txt", header = TRUE)
+# How many variables are included in the dataset?
+num_variables <- ncol(df)
+print(num_variables)
 
+# What is the percentage of developing country (develop=1) in this data?
+percentage_developing <- (sum(df$develop == 1) / nrow(df)) * 100
+print(percentage_developing)
+
+# What is the standard deviation of the variable death rate?
+death_rate_std_dv <- sd(df$deathrate)
+print(death_rate_std_dv)
+
+# What is the range of GDP for the countries in which death rate is greater than 8?
+death_rate_ge_8 <- df[df$deathrate > 8,]
+gdp_range <- range(death_rate_ge_8$gdp)
+print(gdp_range)
+
+# What is the mean of GDP for the developing countries which have death rate higher than 10?
+developing_death_rate_ge_10 <- df[df$develop == 1 & df$deathrate > 10,]
+mean_gdp <- mean(developing_death_rate_ge_10$gdp)
+print(mean_gdp)
+
+# What is the correlation coefficient between GDP and birthrate?  Discuss the relationship between GDP and the birthrate.
+correlation <- cor(df$gdp, df$birthrate)
+cat("correlation is", correlation, "which indicates a negative correlation")
 ```
 
 Q5. Fibonacci sequence is defined by F(1)=F(2)=1 and F(n)=F(n–1)+F(n–2). Write an R function called `Fibonacci` which displays the first n Fibonacci numbers and computes their average. For example, if the input n is 20, the output of Fibonacci (20) shall look like:  
