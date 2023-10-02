@@ -35,7 +35,30 @@ e) Find the index position of elements in x which are larger than 4
 
 ```{r}
 # Write your answer here
+raw <- c(3, 15, 9, 12, -1, -12, 9, 6, 1)
 
+# set postive to 0
+x <- raw
+x[x > 0] <- 0
+print(x)
+
+# set values that are multiples of 3 to 3
+x <- raw
+x[x %% 3 == 0] <- 3
+print(x)
+
+# multiply the values of x that are even by 5
+x <- raw
+x[x %% 2 == 0] <- x[x %% 2 == 0] * 5
+print(x)
+
+x <- raw
+y <- x[x > 10]
+print(y)
+
+x <- raw
+indices <- which(x > 4)
+print(indices)
 ```
 
 
