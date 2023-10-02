@@ -505,7 +505,25 @@ cat(&quot;correlation is&quot;, correlation, &quot;which indicates a negative co
 The first 20 Fibonacci numbers are:<br />
 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765<br />
 The average is 885.5</p>
-<pre class="r"><code># write your answer here</code></pre>
+<pre class="r"><code># write your answer here
+Fibonacci &lt;- function(n) {
+  F &lt;- c(1, 1)
+  if (n &lt;= 2) {
+    return(F[1:n])
+  } else {
+    for (i in 3:n) {
+      next_term &lt;- F[i - 1] + F[i - 2]
+      F &lt;- c(F, next_term)
+    }
+  }
+
+  af &lt;- mean(F) # write your answer here
+  cat(paste(&#39;The first&#39;, n, &#39;Fibonacci numbers are:&#39;), &#39;\n&#39;, F[1:n], &#39;\n&#39;, paste(&#39;the average is&#39;, af))
+}
+Fibonacci(20)</code></pre>
+<pre><code>## The first 20 Fibonacci numbers are: 
+##  1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 
+##  the average is 885.5</code></pre>
 
 
 
