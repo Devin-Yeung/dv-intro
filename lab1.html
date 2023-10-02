@@ -473,7 +473,34 @@ c. What is the standard deviation of the variable death rate?<br />
 d. What is the range of GDP for the countries in which death rate is greater than 8?<br />
 e. What is the mean of GDP for the developing countries which have death rate higher than 10?<br />
 f. What is the correlation coefficient between GDP and birthrate? Discuss the relationship between GDP and the birthrate.</p>
-<pre class="r"><code># Write your answer here</code></pre>
+<pre class="r"><code># Write your answer here
+df &lt;- read.table(&quot;country.txt&quot;, header = TRUE)
+# How many variables are included in the dataset?
+num_variables &lt;- ncol(df)
+print(num_variables)</code></pre>
+<pre><code>## [1] 11</code></pre>
+<pre class="r"><code># What is the percentage of developing country (develop=1) in this data?
+percentage_developing &lt;- (sum(df$develop == 1) / nrow(df)) * 100
+print(percentage_developing)</code></pre>
+<pre><code>## [1] 76.52174</code></pre>
+<pre class="r"><code># What is the standard deviation of the variable death rate?
+death_rate_std_dv &lt;- sd(df$deathrate)
+print(death_rate_std_dv)</code></pre>
+<pre><code>## [1] 4.475512</code></pre>
+<pre class="r"><code># What is the range of GDP for the countries in which death rate is greater than 8?
+death_rate_ge_8 &lt;- df[df$deathrate &gt; 8,]
+gdp_range &lt;- range(death_rate_ge_8$gdp)
+print(gdp_range)</code></pre>
+<pre><code>## [1]   120 22470</code></pre>
+<pre class="r"><code># What is the mean of GDP for the developing countries which have death rate higher than 10?
+developing_death_rate_ge_10 &lt;- df[df$develop == 1 &amp; df$deathrate &gt; 10,]
+mean_gdp &lt;- mean(developing_death_rate_ge_10$gdp)
+print(mean_gdp)</code></pre>
+<pre><code>## [1] 479.8462</code></pre>
+<pre class="r"><code># What is the correlation coefficient between GDP and birthrate?  Discuss the relationship between GDP and the birthrate.
+correlation &lt;- cor(df$gdp, df$birthrate)
+cat(&quot;correlation is&quot;, correlation, &quot;which indicates a negative correlation&quot;)</code></pre>
+<pre><code>## correlation is -0.713604 which indicates a negative correlation</code></pre>
 <p>Q5. Fibonacci sequence is defined by F(1)=F(2)=1 and F(n)=F(n–1)+F(n–2). Write an R function called <code>Fibonacci</code> which displays the first n Fibonacci numbers and computes their average. For example, if the input n is 20, the output of Fibonacci (20) shall look like:<br />
 The first 20 Fibonacci numbers are:<br />
 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765<br />
