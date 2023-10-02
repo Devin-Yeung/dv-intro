@@ -79,6 +79,25 @@ e) Standardize the matrix A such that columns of A are centered to have mean 0 a
 ```{r}
 # Write your answer here
 
+# assign the last 2 rows of A to a matrix called y
+y <- A[2:3,]
+print(y)
+
+# compute the sum over the columns of A
+col_sums <- colSums(A)
+print(col_sums)
+
+# compute the sum over the rows of A
+row_sums <- rowSums(A)
+print(row_sums)
+
+# compute the standard deviation of each column of A
+col_std_dev <- apply(A, 2, sd)
+print(col_std_dev)
+
+# Standardize the matrix A such that columns of A are centered to have mean 0 and scaled to have standard deviation 1.
+standardized <- scale(A)
+print(standardized)
 ```
 
 Q4. The data file “country.txt” in Ispace contains numerous population indicators for a sample of 115 countries.
