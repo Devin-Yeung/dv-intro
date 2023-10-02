@@ -395,7 +395,32 @@ b) set values that are multiples of 3 to 3<br />
 c) multiply the values of x that are even by 5<br />
 d) extract the values of x that are greater than 10 into a vector called y<br />
 e) Find the index position of elements in x which are larger than 4</p>
-<pre class="r"><code># Write your answer here</code></pre>
+<pre class="r"><code># Write your answer here
+raw &lt;- c(3, 15, 9, 12, -1, -12, 9, 6, 1)
+
+# set postive to 0
+x &lt;- raw
+x[x &gt; 0] &lt;- 0
+print(x)</code></pre>
+<pre><code>## [1]   0   0   0   0  -1 -12   0   0   0</code></pre>
+<pre class="r"><code># set values that are multiples of 3 to 3
+x &lt;- raw
+x[x %% 3 == 0] &lt;- 3
+print(x)</code></pre>
+<pre><code>## [1]  3  3  3  3 -1  3  3  3  1</code></pre>
+<pre class="r"><code># multiply the values of x that are even by 5
+x &lt;- raw
+x[x %% 2 == 0] &lt;- x[x %% 2 == 0] * 5
+print(x)</code></pre>
+<pre><code>## [1]   3  15   9  60  -1 -60   9  30   1</code></pre>
+<pre class="r"><code>x &lt;- raw
+y &lt;- x[x &gt; 10]
+print(y)</code></pre>
+<pre><code>## [1] 15 12</code></pre>
+<pre class="r"><code>x &lt;- raw
+indices &lt;- which(x &gt; 4)
+print(indices)</code></pre>
+<pre><code>## [1] 2 3 4 7 8</code></pre>
 <p>Q3. Given the matrix A as following</p>
 <pre class="r"><code>a &lt;- c(2, 4, 1, 6, 7, 2, 3, 5, 9)
 A &lt;- matrix(a, nrow = 3, ncol = 3, byrow = T)
@@ -410,7 +435,37 @@ b) compute the sum over the columns of A<br />
 c) compute the sum over the rows of A<br />
 d) compute the standard deviation of each column of A<br />
 e) Standardize the matrix A such that columns of A are centered to have mean 0 and scaled to have standard deviation 1.</p>
-<pre class="r"><code># Write your answer here</code></pre>
+<pre class="r"><code># Write your answer here
+
+# assign the last 2 rows of A to a matrix called y
+y &lt;- A[2:3,]
+print(y)</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    6    7    2
+## [2,]    3    5    9</code></pre>
+<pre class="r"><code># compute the sum over the columns of A
+col_sums &lt;- colSums(A)
+print(col_sums)</code></pre>
+<pre><code>## [1] 11 16 12</code></pre>
+<pre class="r"><code># compute the sum over the rows of A
+row_sums &lt;- rowSums(A)
+print(row_sums)</code></pre>
+<pre><code>## [1]  7 15 17</code></pre>
+<pre class="r"><code># compute the standard deviation of each column of A
+col_std_dev &lt;- apply(A, 2, sd)
+print(col_std_dev)</code></pre>
+<pre><code>## [1] 2.081666 1.527525 4.358899</code></pre>
+<pre class="r"><code># Standardize the matrix A such that columns of A are centered to have mean 0 and scaled to have standard deviation 1.
+standardized &lt;- scale(A)
+print(standardized)</code></pre>
+<pre><code>##            [,1]       [,2]       [,3]
+## [1,] -0.8006408 -0.8728716 -0.6882472
+## [2,]  1.1208971  1.0910895 -0.4588315
+## [3,] -0.3202563 -0.2182179  1.1470787
+## attr(,&quot;scaled:center&quot;)
+## [1] 3.666667 5.333333 4.000000
+## attr(,&quot;scaled:scale&quot;)
+## [1] 2.081666 1.527525 4.358899</code></pre>
 <p>Q4. The data file “country.txt” in Ispace contains numerous population indicators for a sample of 115 countries. Read the data file into R and answer the following questions.<br />
 a. How many variables are included in the dataset?<br />
 b. What is the percentage of developing country (develop=1) in this data?<br />
