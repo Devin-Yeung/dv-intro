@@ -153,15 +153,17 @@ Separate columns according to cylinders
 ```{r}
 # Separate columns according to cylinders
 # write your answer here
+p <- ggplot(data = mtcars,
+            mapping = aes(x = hp, y = mpg)) +
+  geom_point()
 
-
+p + facet_grid(col = vars(cyl))
 ```
 
 ```{r}
 #or
 # write your answer here
-
-
+p + facet_grid(. ~ cyl)
 ```
 
 ### 1.2.5 Statistics layer:
