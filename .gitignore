@@ -3,3 +3,7 @@
 /**/*.html
 lab2/country20.*
 
+.Rproj.user
+.Rbuildignore
+.Rhistory
+*.Rproj
