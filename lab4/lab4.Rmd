@@ -209,16 +209,21 @@ $\color{red}{\text{In-class exercise}}$
 Try plotting two fitted curves based on different values of am.
 ```{r}
 # write your answer here
-
-
+ggplot(mtcars, aes(x = wt, y = hp, color = factor(am))) +
+  geom_point() +
+  geom_smooth(method = "loess", se = TRUE) +
+  scale_color_discrete(name = "am")
 ```
 
 Try using ```coord_cartesian()``` to zoom in the plot to better visualize the data with wt in the range [3,6]. Use the command ```help("coord_cartesian")``` to get help.
 
 ```{r}
 # write your answer here
-
-
+ggplot(data = mtcars,
+       mapping = aes(x = wt, y = hp, col = am)) +
+  geom_point() +
+  geom_smooth(method = "loess", formula = 'y ~ x') +
+  coord_cartesian(xlim = c(3, 6))
 ```
 
 
