@@ -273,26 +273,33 @@ library(ggplot2)
 
 # Creating a satterplot for two variables 'Sepal.Length' and 'Sepal.Width'
 # Write your anwser here
-
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point()
 ```
 
 
 ```{r}
 # Adding another variable 'Species' and indicate 'Species' using color 
 # Write your anwser here
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point()
 
 ```
 
 ```{r}
 # Creating a satterplot for two variables 'Petal.Length' and 'Petal.Width'
 # Write your answer here
+ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
+  geom_point()
 
 ```
 
 ```{r}
 # Adding another variable 'Species', indicate 'Species' using shape, and set the background color lightblue.
 # Write your answer here
-
+ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width, shape = Species)) +
+  geom_point() +
+  theme(plot.background = element_rect(fill = "lightblue", colour = "black"))
 ```
 
 
