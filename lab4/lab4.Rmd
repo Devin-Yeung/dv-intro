@@ -116,8 +116,9 @@ $\color{red}{\text{In-class exercise}}$
 # Adding color and shape in aes function to denote cyl and am attributes. 
 # Hint: use factor(cyl) to count the distinct values contained in cyl attribute.
 # write your answer here
-
-
+ggplot(data = mtcars,
+       mapping = aes(x = hp, y = mpg, color = factor(cyl), shape = factor(am))) +
+  geom_point()
 ```
 
 Draw histogram plot of hp attribute.
