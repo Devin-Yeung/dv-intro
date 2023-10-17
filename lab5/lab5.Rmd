@@ -229,7 +229,7 @@ Now we will focus on establishing relationship between the variables. Draw linea
 # write your answer here
 ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
   geom_point(shape=1) +
-  geom_smooth()
+  geom_smooth(method = "lm")
 ```
 
 We can also add a regression line with no shaded confidence region. Hint: set ```se``` attribute to **FALSE** in geom_smooth function.
@@ -238,7 +238,7 @@ We can also add a regression line with no shaded confidence region. Hint: set ``
 # write your answer here
 ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
   geom_point(shape=1) +
-  geom_smooth(se=FALSE)
+  geom_smooth(method = "lm", se=FALSE)
 ```
 
 **Jitter plots** include special effects with which scattered plots can be depicted. Jitter is nothing but a random value that is assigned to dots to separate data. Here, we take the ```mpg``` dataset for example. We can use ```help(mpg)``` to get dataset description.
