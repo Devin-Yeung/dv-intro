@@ -127,7 +127,8 @@ $\color{red}{\text{In-class exercise}}$
 Use the legend position to set legend on top of the plot.
 ```{r}
 # Write your answer here
-
+p <- ggplot(iris, aes(Sepal.Length, Petal.Length, colour=Species)) + geom_point()
+p + theme(legend.position = "top")
 ```
 
 We can change the font style of title and labels in legend.
@@ -143,7 +144,8 @@ $\color{red}{\text{In-class exercise}}$
 Change the font style of **legend text** to red and italic.
 ```{r}
 # Write your answer here
-
+p <- ggplot(iris, aes(Sepal.Length, Petal.Length, colour=Species)) + geom_point()
+p + theme(legend.text = element_text(colour = "red", face = "italic"))
 ```
 
 It is also possible to change legend titles using the function ```guides()```:
@@ -185,6 +187,13 @@ Given the default plot:
 # Default plot
 p <- ggplot(iris, aes(Sepal.Length, Petal.Length, colour=Species)) + geom_point()
 # write your answer here
+p + ggtitle("Petal.length (cm)") +
+  xlab("Sepal.length (cm)") +
+  ylab("Petal.length (cm)") +
+  theme(
+    plot.title = element_text(colour = "blue"), # change plot title (TODO: change font family)
+    axis.title = element_text(colour = "dodgerblue", face = "italic"),
+  )
 
 ```
 
