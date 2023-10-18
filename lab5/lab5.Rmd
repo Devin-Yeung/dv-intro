@@ -328,9 +328,9 @@ lm_eqn <- function(df, yvar, xvar){
          list(a = format(unname(coef(m)[1]), digits = 2),
               b = format(unname(coef(m)[2]), digits = 2),
              r2 = format(summary(m)$r.squared, digits = 3)))
-    as.character(as.expression(eq));
+    # as.character(as.expression(eq));
+    as.expression(eq);
 }
 
-p + geom_text(x = 300, y = 30, label = lm_eqn(mtcars, "mpg", "hp"), parse = TRUE)
-
+p + ggtitle(lm_eqn(mtcars, "mpg", "hp"))
 ```
