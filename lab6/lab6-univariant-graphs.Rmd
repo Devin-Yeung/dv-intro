@@ -525,6 +525,16 @@ Set the number of bins to 20, and compare with original plot.
 ```{r}
 # plot the histogram with 20 bins
 # write your answer here
+ggplot(Marriage, aes(x = age)) +
+  geom_histogram(
+    bins = 20,
+    fill = "cornflowerblue",
+    color = "white"
+  ) +
+  labs(
+    title = "Participants by age",
+    x = "Age"
+  )
 ```
 
 Alternatively, you can specify the binwidth, the width of the bins represented by the bars.
