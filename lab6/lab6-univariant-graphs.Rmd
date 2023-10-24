@@ -453,6 +453,25 @@ library(dplyr)
 data(Marriage, package = "mosaicData")
 # count for sign (one column in Marriage dataset)
 # write your answer here
+
+plotdata <- Marriage %>%
+  count(sign)
+
+plotdata
+ggplot(
+  plotdata,
+  aes(
+    x = reorder(sign, n),
+    y = n
+  )
+) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "white") +
+  labs(
+    x = "Astrological sign",
+    y = "Frequency",
+    title = "Astrological sign of bride/groom"
+  ) +
+  coord_flip()
 ```
 
 
