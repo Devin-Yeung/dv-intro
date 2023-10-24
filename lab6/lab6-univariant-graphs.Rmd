@@ -121,6 +121,19 @@ Sort the bars in descending order. Hint: the values of -n of objects gives their
 
 ```{r}
 # write your answer here
+ggplot(
+  plotdata,
+  aes(
+    x = reorder(race, n, decreasing = TRUE),
+    y = n
+  )
+) +
+  geom_bar(stat = "identity") +
+  labs(
+    x = "Race",
+    y = "Frequency",
+    title = "Participants by race"
+  )
 ```
 
 
@@ -577,4 +590,3 @@ Hint: the setting involves `fill` and `color` attributes.
 ```{r}
 # write your answer here
 ```
-
