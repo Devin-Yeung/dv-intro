@@ -616,6 +616,9 @@ Hint: the setting involves `fill` and `bw` attributes in `geom_density()`.
 ```{r}
 # Create a kernel density plot of age
 # write your answer here
+ggplot(Marriage, aes(x = age)) +
+  geom_density(fill = "deepskyblue", bw = 1) +
+  labs(title = "Participants by age")
 ```
 
 
@@ -644,4 +647,11 @@ Hint: the setting involves `fill` and `color` attributes.
  
 ```{r}
 # write your answer here
+ggplot(Marriage, aes(x = age)) +
+  geom_dotplot(color = "black", fill = "gold") +
+  labs(
+    title = "Participants by age",
+    y = "Proportion",
+    x = "Age"
+  )
 ```
