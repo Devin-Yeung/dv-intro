@@ -318,8 +318,8 @@ plotdata <- Marriage %>%
   count(race) %>%
   arrange(race) %>%
   mutate(prop = round(n * 100 / sum(n), 1))
-+
-  plotdata$label <- paste0(
+
+plotdata$label <- paste0(
   plotdata$race, "\n",
   round(plotdata$prop), "%"
 )
