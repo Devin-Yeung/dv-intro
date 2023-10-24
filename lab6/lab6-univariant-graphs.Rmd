@@ -367,7 +367,7 @@ plotdata$label <- paste0(
   round(plotdata$prop), "%"
 )
 
-ggplot(
+p <- ggplot(
   plotdata,
   aes(
     x = "",
@@ -396,6 +396,7 @@ ggplot(
   ) +
   theme_void()
 # add code to the above function
+p + theme(legend.position = "none") + labs(title = "Participants by race")
 ```
 
 
