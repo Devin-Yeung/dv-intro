@@ -193,7 +193,7 @@ ggplot(
     y = pct
   )
 ) +
-  geom_bar(stat = "identity", fill = "indianred3") +
+  geom_bar(stat = "identity", fill = "indianred3", color = "black") +
   geom_text(aes(label = pctlabel),
     vjust = -0.5
   ) +
