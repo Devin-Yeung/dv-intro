@@ -245,6 +245,14 @@ Hint: set ```theme``` of the plot by changing the ```angle``` of ```axis.text.x`
 ```{r}
 # bar chart with rotated labels
 # write your answer here
+ggplot(Marriage, aes(x = officialTitle)) +
+  geom_bar() +
+  labs(
+    x = "Officiate",
+    y = "Frequency",
+    title = "Marriages by officiate"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 
@@ -310,8 +318,8 @@ plotdata <- Marriage %>%
   count(race) %>%
   arrange(race) %>%
   mutate(prop = round(n * 100 / sum(n), 1))
-
-plotdata$label <- paste0(
++
+  plotdata$label <- paste0(
   plotdata$race, "\n",
   round(plotdata$prop), "%"
 )
