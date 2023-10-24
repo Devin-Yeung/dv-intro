@@ -184,8 +184,25 @@ plotdata <- Marriage %>%
 # try it: t1 = paste("a","b","c",sep = "+")
 
 # plot the bars as percentages,
-# in decending order with bar labels
+# in descending order with bar labels
 # write your answer here
+ggplot(
+  plotdata,
+  aes(
+    x = reorder(race, n, decreasing = TRUE),
+    y = pct
+  )
+) +
+  geom_bar(stat = "identity", fill = "indianred3") +
+  geom_text(aes(label = pctlabel),
+    vjust = -0.5
+  ) +
+  labs(
+    x = "Race",
+    y = "Frequency",
+    title = "Participants by race"
+  ) +
+  scale_y_continuous(labels = scales::percent)
 ```
 
 
