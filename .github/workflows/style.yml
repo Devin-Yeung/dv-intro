@@ -1,3 +1,6 @@
+permissions:
+  contents: write
+
 on:
   push:
     # paths: ["**.[rR]", "**.[qrR]md", "**.[rR]markdown", "**.[rR]nw", "**.[rR]profile"]
