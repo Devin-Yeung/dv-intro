@@ -117,32 +117,42 @@ The ```filter``` function allows you to limit your dataset to observations (rows
 library(dplyr)
 
 # select females
-newdata <- filter(starwars,
-                  gender == "feminine")
+newdata <- filter(
+  starwars,
+  gender == "feminine"
+)
 
 # select females that are from Alderaan
-newdata <- filter(starwars,
-                  gender == "feminine" &
-                    homeworld == "Alderaan")
+newdata <- filter(
+  starwars,
+  gender == "feminine" &
+    homeworld == "Alderaan"
+)
 
 
 # select individuals that are from Alderaan, Coruscant, or Endor
-newdata <- filter(starwars,
-                  homeworld == "Alderaan" |
-                    homeworld == "Coruscant" |
-                    homeworld == "Endor")
+newdata <- filter(
+  starwars,
+  homeworld == "Alderaan" |
+    homeworld == "Coruscant" |
+    homeworld == "Endor"
+)
 
 # this can be written more succinctly as
-newdata <- filter(starwars,
-                  homeworld %in% c("Alderaan", "Coruscant", "Endor"))
+newdata <- filter(
+  starwars,
+  homeworld %in% c("Alderaan", "Coruscant", "Endor")
+)
 ```
 $\color{red}{\text{In class exercise}}$
 ```{r}
 # select individuals who is human and higher than 1.7
 # write your answer here
-newdata <- filter(starwars,
-                  species == "Human",
-                  height >= 170)
+newdata <- filter(
+  starwars,
+  species == "Human",
+  height >= 170
+)
 print(newdata)
 ```
 
@@ -152,11 +162,12 @@ The ```mutate``` function allows you to create new variables or transform existi
 # loading package
 library(dplyr)
 
-# convert height in centimeters to inches, 
+# convert height in centimeters to inches,
 # and mass in kilograms to pounds
 newdata <- mutate(starwars,
-                  height = height * 0.394,
-                  mass = mass * 2.205)
+  height = height * 0.394,
+  mass = mass * 2.205
+)
 ```
 
 The ```ifelse``` function (part of base R) can be used for recoding data. The format is ```ifelse(test, return if TRUE, return if FALSE)```.
@@ -165,16 +176,18 @@ The ```ifelse``` function (part of base R) can be used for recoding data. The fo
 # loading package
 library(dplyr)
 
-# if height is greater than 180 
-# then heightcat = "tall", 
+# if height is greater than 180
+# then heightcat = "tall",
 # otherwise heightcat = "short"
 
 newdata <- mutate(starwars, heightcat = ifelse(height > 180, "tall", "short"))
 
 # set heights greater than 200 or less than 75 to missing
 newdata <- mutate(starwars,
-                  height = ifelse(height < 75 | height > 200,
-                                  NA, height))
+  height = ifelse(height < 75 | height > 200,
+    NA, height
+  )
+)
 ```
 
 $\color{red}{\text{In class exercise}}$
@@ -194,8 +207,9 @@ The ```summarize``` function can be used to reduce multiple values down to a sin
 library(dplyr)
 # calculate mean height and mass
 newdata <- summarize(starwars,
-                     mean_ht = mean(height, na.rm = TRUE),
-                     mean_mass = mean(mass, na.rm = TRUE))
+  mean_ht = mean(height, na.rm = TRUE),
+  mean_mass = mean(mass, na.rm = TRUE)
+)
 newdata
 ```
 
@@ -203,8 +217,9 @@ newdata
 # calculate mean height and weight by gender
 newdata <- group_by(starwars, gender)
 newdata <- summarize(newdata,
-                     mean_ht = mean(height, na.rm = TRUE),
-                     mean_wt = mean(mass, na.rm = TRUE))
+  mean_ht = mean(height, na.rm = TRUE),
+  mean_wt = mean(mass, na.rm = TRUE)
+)
 print(newdata)
 ```
 
@@ -235,19 +250,22 @@ Some graphs require the data to be in wide format, while some graphs require the
 library(tidyr)
 
 # define a wide dataset
-wide_data <- data.frame(id = c(01, 02, 03),
-                        name = c("Bill", "Bob", "Mary"),
-                        sex = c("Male", "Male", "Female"),
-                        age = c("22", "35", "48"),
-                        income = c(40000, 90000, 150000))
+wide_data <- data.frame(
+  id = c(01, 02, 03),
+  name = c("Bill", "Bob", "Mary"),
+  sex = c("Male", "Male", "Female"),
+  age = c("22", "35", "48"),
+  income = c(40000, 90000, 150000)
+)
 wide_data
 
 
 # convert a wide dataset to a long dataset
 long_data <- gather(wide_data,
-                    key = "variable",
-                    value = "value",
-                    sex:income)
+  key = "variable",
+  value = "value",
+  sex:income
+)
 print(long_data)
 ```
 Conversely, you can convert a long dataset to a wide dataset using
@@ -310,8 +328,8 @@ df <- read_csv("salaries.csv")
 # Select the female professors whose salaries are between 80000 and 100000
 # write your answer here
 female_high_salaries <- df %>% filter(
-  rank == 'Prof' &
-    sex == 'Female' &
+  rank == "Prof" &
+    sex == "Female" &
     (salary >= 80000 & salary <= 100000)
 )
 print(female_high_salaries)
@@ -324,8 +342,6 @@ mean_income_by_sex <- df %>%
 
 print(mean_income_by_sex)
 # using pipe %>% operator in your answer for last question
-
-
 ```
 
 

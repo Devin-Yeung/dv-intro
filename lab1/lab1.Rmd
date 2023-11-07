@@ -82,7 +82,7 @@ e) Standardize the matrix A such that columns of A are centered to have mean 0 a
 # Write your answer here
 
 # assign the last 2 rows of A to a matrix called y
-y <- A[2:3,]
+y <- A[2:3, ]
 print(y)
 
 # compute the sum over the columns of A
@@ -127,12 +127,12 @@ death_rate_std_dv <- sd(df$deathrate)
 print(death_rate_std_dv)
 
 # What is the range of GDP for the countries in which death rate is greater than 8?
-death_rate_ge_8 <- df[df$deathrate > 8,]
+death_rate_ge_8 <- df[df$deathrate > 8, ]
 gdp_range <- range(death_rate_ge_8$gdp)
 print(gdp_range)
 
 # What is the mean of GDP for the developing countries which have death rate higher than 10?
-developing_death_rate_ge_10 <- df[df$develop == 1 & df$deathrate > 10,]
+developing_death_rate_ge_10 <- df[df$develop == 1 & df$deathrate > 10, ]
 mean_gdp <- mean(developing_death_rate_ge_10$gdp)
 print(mean_gdp)
 
@@ -160,7 +160,7 @@ Fibonacci <- function(n) {
   }
 
   af <- mean(F) # write your answer here
-  cat(paste('The first', n, 'Fibonacci numbers are:'), '\n', F[1:n], '\n', paste('the average is', af))
+  cat(paste("The first", n, "Fibonacci numbers are:"), "\n", F[1:n], "\n", paste("the average is", af))
 }
 Fibonacci(20)
 ```

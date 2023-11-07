@@ -68,8 +68,10 @@ ggplot(data = mtcars)
 Here we will display and map dataset into certain aesthetics. The mapping of the variables to visual properties of the graph. The mappings are placed within the ```aes``` function (where aes stands for aesthetics).
 ```{r}
 # Aesthetic Layer
-ggplot(data = mtcars,
-       mapping = aes(x = hp, y = mpg))
+ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg)
+)
 ```
 
 ### 1.2.3 Geometric layer:
@@ -77,8 +79,10 @@ In geometric layer control the essential elements, see how our data being displa
 ```{r}
 # Geometric layer
 # Scatterplot: two variables
-ggplot(data = mtcars,
-       mapping = aes(x = hp, y = mpg)) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg)
+) +
   geom_point()
 ```
 
@@ -86,19 +90,25 @@ A number of parameters (options) can be specified in a geom_ function. Options f
 
 ```{r}
 # make points blue, larger, and semi-transparent
-ggplot(data = mtcars,
-       mapping = aes(x = hp, y = mpg)) +
-  geom_point(color = "cornflowerblue",
-             alpha = .7,
-             size = 3)
+ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg)
+) +
+  geom_point(
+    color = "cornflowerblue",
+    alpha = .7,
+    size = 3
+  )
 ```
 
 Use scatterplot to plot three variables:
 
 ```{r}
 # Scatterplot: three variables
-ggplot(data = mtcars,
-       mapping = aes(x = hp, y = mpg, col = disp)) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg, col = disp)
+) +
   geom_point()
 ```
 
@@ -106,18 +116,22 @@ Geometric layer: Adding size, color, and shape to denote other attributes.
 
 ```{r}
 # Adding size
-ggplot(data = mtcars,
-       mapping = aes(x = hp, y = mpg, size = disp)) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg, size = disp)
+) +
   geom_point()
 ```
 
 $\color{red}{\text{In-class exercise}}$
 ```{r}
-# Adding color and shape in aes function to denote cyl and am attributes. 
+# Adding color and shape in aes function to denote cyl and am attributes.
 # Hint: use factor(cyl) to count the distinct values contained in cyl attribute.
 # write your answer here
-ggplot(data = mtcars,
-       mapping = aes(x = hp, y = mpg, color = factor(cyl), shape = factor(am))) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg, color = factor(cyl), shape = factor(am))
+) +
   geom_point()
 ```
 
@@ -134,8 +148,10 @@ It is used to **split** the data up into subsets of the entire dataset and it al
 
 ```{r}
 # Facet Layer
-p <- ggplot(data = mtcars,
-            mapping = aes(x = hp, y = mpg, shape = factor(cyl))) +
+p <- ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg, shape = factor(cyl))
+) +
   geom_point()
 
 # Separate rows according to transmission type
@@ -153,15 +169,17 @@ Separate columns according to cylinders
 ```{r}
 # Separate columns according to cylinders
 # write your answer here
-p <- ggplot(data = mtcars,
-            mapping = aes(x = hp, y = mpg)) +
+p <- ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg)
+) +
   geom_point()
 
 p + facet_grid(col = vars(cyl))
 ```
 
 ```{r}
-#or
+# or
 # write your answer here
 p + facet_grid(. ~ cyl)
 ```
@@ -172,8 +190,10 @@ In this layer, we transform our data using binning, smoothing, descriptive, inte
 ```{r}
 # Statistics layer
 # lm: Fitting Linear Models
-ggplot(data = mtcars,
-       mapping = aes(x = hp, y = mpg)) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg)
+) +
   geom_point() +
   stat_smooth(method = lm, formula = y ~ x, col = "red", cex = 1)
 ```
@@ -183,24 +203,32 @@ ggplot(data = mtcars,
 In these layers, data coordinates are mapped together to the mentioned plane of the graphic and we adjust the axis and changes the spacing of displayed data with control plot dimensions.
 ```{r}
 # Coordinates layer: Control plot dimensions
-ggplot(data = mtcars,
-       mapping = aes(x = wt, y = mpg)) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = wt, y = mpg)
+) +
   geom_point() +
   stat_smooth(method = lm, col = "red") +
-  scale_y_continuous("mpg", limits = c(2, 35),
-                     expand = c(0, 0)) +
-  scale_x_continuous("wt", limits = c(0, 25),
-                     expand = c(0, 0)) +
+  scale_y_continuous("mpg",
+    limits = c(2, 35),
+    expand = c(0, 0)
+  ) +
+  scale_x_continuous("wt",
+    limits = c(0, 25),
+    expand = c(0, 0)
+  ) +
   coord_equal()
 ```
 
 Given following plot of attributes wt and hp:
 ```{r}
 # loess: Local Polynomial Regression Fitting
-ggplot(data = mtcars,
-       mapping = aes(x = wt, y = hp, col = am)) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = wt, y = hp, col = am)
+) +
   geom_point() +
-  geom_smooth(method = "loess", formula = 'y ~ x')
+  geom_smooth(method = "loess", formula = "y ~ x")
 ```
 
 
@@ -219,10 +247,12 @@ Try using ```coord_cartesian()``` to zoom in the plot to better visualize the da
 
 ```{r}
 # write your answer here
-ggplot(data = mtcars,
-       mapping = aes(x = wt, y = hp, col = am)) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = wt, y = hp, col = am)
+) +
   geom_point() +
-  geom_smooth(method = "loess", formula = 'y ~ x') +
+  geom_smooth(method = "loess", formula = "y ~ x") +
   coord_cartesian(xlim = c(3, 6))
 ```
 
@@ -233,19 +263,25 @@ This layer controls the finer points of display like the font size and backgroun
 Example 1: Theme layer – ```element_rect()``` function
 ```{r}
 # Theme layer
-ggplot(data = mtcars,
-       mapping = aes(x = hp, y = mpg)) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg)
+) +
   geom_point() +
   facet_grid(. ~ cyl) +
-  theme(plot.background = element_rect(fill = "pink",
-                                       colour = "black"))
+  theme(plot.background = element_rect(
+    fill = "pink",
+    colour = "black"
+  ))
 ```
 
 Example 2:
 ```{r}
 # Theme layer
-ggplot(data = mtcars,
-       mapping = aes(x = hp, y = mpg)) +
+ggplot(
+  data = mtcars,
+  mapping = aes(x = hp, y = mpg)
+) +
   geom_point() +
   facet_grid(am ~ cyl) +
   theme_dark()
@@ -279,11 +315,10 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
 
 
 ```{r}
-# Adding another variable 'Species' and indicate 'Species' using color 
+# Adding another variable 'Species' and indicate 'Species' using color
 # Write your anwser here
 ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
   geom_point()
-
 ```
 
 ```{r}
@@ -291,7 +326,6 @@ ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
 # Write your answer here
 ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) +
   geom_point()
-
 ```
 
 ```{r}

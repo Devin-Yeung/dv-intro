@@ -67,7 +67,7 @@ print(seq(5, 9, by = 0.4))
 
 # 3. Using the c() function
 # The logical and numeric values are converted to characters.
-s <- c('apple', 'red', 5, TRUE)
+s <- c("apple", "red", 5, TRUE)
 print(s)
 print(class(s[3]))
 ```
@@ -136,8 +136,8 @@ M <- matrix(c(3:14), nrow = 4, byrow = TRUE)
 print(M)
 
 # Define the column and row names.
-rownames = c("row1", "row2", "row3", "row4")
-colnames = c("col1", "col2", "col3")
+rownames <- c("row1", "row2", "row3", "row4")
+colnames <- c("col1", "col2", "col3")
 
 P <- matrix(c(3:14), nrow = 4, byrow = TRUE, dimnames = list(rownames, colnames))
 print(P)
@@ -176,7 +176,7 @@ print(sorted_matrix)
 Factors are the R-objects which are created using a vector. It stores the vector along with the distinct values of the elements in the vector as labels.
 ```{r}
 # Create a vector
-apple_colors <- c('green', 'green', 'yellow', 'red', 'red', 'red', 'green')
+apple_colors <- c("green", "green", "yellow", "red", "red", "red", "green")
 
 # Create a factor object
 factor_apple <- factor(apple_colors)
@@ -196,9 +196,10 @@ emp.data <- data.frame(
   emp_id = c(1:5),
   emp_name = c("Rick", "Dan", "Michelle", "Ryan", "Gary"),
   salary = c(623.3, 515.2, 611.0, 729.0, 843.25),
-
-  start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
-                         "2015-03-27")),
+  start_date = as.Date(c(
+    "2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+    "2015-03-27"
+  )),
   stringsAsFactors = FALSE
 )
 print(emp.data)
@@ -208,13 +209,19 @@ print(result)
 ```
 $\color{red}{\text{In class exercise}}$
 ```{r}
-#Q1: Given column vectors, use cbind() to combine multiple vectors column by column to form a new data frame
-car_models <- c('Maruti', 'Hyundai', 'Tata',
-                'Ford', 'Nissan', 'Toyota')
-car_type <- c('Diesel', 'Petrol', 'Petrol',
-              'Diesel', 'Petrol', 'Diesel')
-car_color <- c('Red', 'Blue', 'Red',
-               'Red', 'Blue', 'Red')
+# Q1: Given column vectors, use cbind() to combine multiple vectors column by column to form a new data frame
+car_models <- c(
+  "Maruti", "Hyundai", "Tata",
+  "Ford", "Nissan", "Toyota"
+)
+car_type <- c(
+  "Diesel", "Petrol", "Petrol",
+  "Diesel", "Petrol", "Diesel"
+)
+car_color <- c(
+  "Red", "Blue", "Red",
+  "Red", "Blue", "Red"
+)
 year <- c(2001, 2011, 2013, 2012, 2021, 2021)
 # write your answer here:
 car_data <- cbind(car_models, car_type, car_color, year)
@@ -258,12 +265,12 @@ for (x in fruits) {
 # 3. File Handling
 In R Programming, handling of files such as reading and writing files can be done by using in-built functions present in R base package.
 ```{r}
-#data=read.table(file.choose(),header=T)
+# data=read.table(file.choose(),header=T)
 data <- read.table(file = "./country.txt", header = T)
 print(is.data.frame(data))
 print(ncol(data))
 print(nrow(data))
-#print(data)
+# print(data)
 ```
 $\color{red}{\text{In class exercise}}$
 ```{r}
@@ -273,7 +280,7 @@ print(head(data, 11))
 max_gdp <- max(data$gdp)
 print(max_gdp)
 # Q3: Get the country detail with max gdp
-country_max_gdp <- data[data$gdp == max_gdp,]
+country_max_gdp <- data[data$gdp == max_gdp, ]
 print(country_max_gdp)
 # Q4: write the first 20 rows of data to a txt file "country20.txt".
 write.table(head(data, 20), "country20.txt", sep = "\t", quote = FALSE)
@@ -283,7 +290,7 @@ write.csv(head(data, 20), "country20.csv", row.names = FALSE)
 country20 <- read.csv("country20.csv")
 print(country20)
 # Q7: What is the mean of GDP for the developing countries which have death rate higher than 10?
-high_death_rate_gdp <- data[data$deathrate > 10,]$gdp
+high_death_rate_gdp <- data[data$deathrate > 10, ]$gdp
 print(mean(high_death_rate_gdp))
 ```
 
@@ -336,7 +343,7 @@ Fibonacci <- function(n) {
   }
 
   af <- mean(F) # write your answer here
-  cat(paste('The first', n, 'Fibonacci numbers are:'), '\n', F[1:n], '\n', paste('the average is', af))
+  cat(paste("The first", n, "Fibonacci numbers are:"), "\n", F[1:n], "\n", paste("the average is", af))
 }
 Fibonacci(20)
 ```
