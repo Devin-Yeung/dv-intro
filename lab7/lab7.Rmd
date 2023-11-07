@@ -466,21 +466,21 @@ geom_segment(aes(x = 40,
 
 Combine `reorder()` and `geom_segment()` to draw plot in the following:
 
-```{r eval=FALSE}
+```{r}
 # Fancy Cleveland plot
 # write your answer here
 ggplot(plotdata,
        aes(x = lifeExp,
-           y = country)) +
+           y = reorder(country, lifeExp))) +
+  geom_point(color = "blue",
+             size = 2) +
   geom_segment(aes(
     x = 40,
     xend = lifeExp,
-    y = reorder(country, lifeExp),
+    y = country,
     yend = country
   ),
   color = "grey",) +
-  geom_point(color = "blue",
-             size = 2) +
   labs(title = "Life Expectancy by Country",
        subtitle = "GapMinder data for Asia - 2007",
        x = "Life Expectancy (years)") +
