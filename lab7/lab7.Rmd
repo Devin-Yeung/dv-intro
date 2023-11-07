@@ -64,6 +64,11 @@ library(ggplot2)
 
 # grouped bar plot preserving zero count bars
 # write your answer here
+ggplot(mpg, 
+       aes(x = class, 
+           fill = drv)) + 
+  geom_bar(position = position_dodge2(preserve = "single"))
+
 ```
 
 Note that this option is only available in the latest development version of `ggplot2`, but should should be generally available shortly.
@@ -270,6 +275,12 @@ It is hard to read individual values in the graph above. In the next plot, we’
 # line plot with points
 # and improved labeling
 # write your answer here
+ggplot(plotdata, 
+       aes(x = year, 
+           y = lifeExp)) +
+  geom_line() +
+  geom_point(size=3, color="steelblue") +
+  labs(x = "Year", y = "Life Expectancy (years)", title = "Life expectancy changes over time", subtitle = "United States (1952-2007)", caption = "Source: http://www.gapminder.org/data/")
 
 ```
 
@@ -313,6 +324,22 @@ knitr::include_graphics("bar-chart.png")
 ```{r}
 # plot mean salaries in a more attractive fashion
 # write your answer here
+ggplot(plotdata, 
+       aes(x = factor(rank, 
+                         levels = c("AsstProf", "AssocProf", "Prof"),
+                         labels = c("Assistant Professor", 
+                                    "Associate Professor", 
+                                    "Full Professor")), 
+           y = mean_salary)) +
+  geom_bar(stat = "identity", fill="cornflowerblue") +
+  geom_text(aes(label = paste0("$", comma(mean_salary, accuracy = 1, scale = 1))), vjust = -0.5, color = "black", size = 4) +
+  scale_y_continuous(label = scales::dollar, 
+                     limits = c(0, 130000),
+                     breaks = seq(0, 130000, 20000)) +
+  labs(x = "",
+       y = "",
+       title = "Mean Salary by Rank",
+       subtitle = "9-month academic salary for 2008-2009")
 
 ```
 
