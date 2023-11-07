@@ -357,7 +357,8 @@ data(Salaries, package="carData")
 
 # draw kernel density plot
 # write your answer here
-
+ggplot(Salaries, aes(x = salary)) +
+  geom_density()
 ```
 
 One can compare groups on a numeric variable by superimposing *kernel density* plots in a single graph. 
@@ -373,6 +374,8 @@ data(Salaries, package="carData")
 
 # draw kernel density plot
 # write your answer here
+ggplot(Salaries, aes(x = salary, fill = rank)) +
+  geom_density(alpha = 0.4)
 
 ```
 
@@ -441,6 +444,9 @@ Comparisons are usually easier if the `y-axis` is sorted. Hint: use reorder() fo
 ```{r}
 # write your answer here
 # Sorted Cleveland plot
+ggplot(plotdata, 
+       aes(x= lifeExp, y = reorder(country, lifeExp))) +
+  geom_point()
 
 ```
 
@@ -463,7 +469,29 @@ Combine `reorder()` and `geom_segment()` to draw plot in the following:
 ```{r eval=FALSE}
 # Fancy Cleveland plot
 # write your answer here
-
+ggplot(plotdata,
+       aes(x = lifeExp,
+           y = country)) +
+  geom_segment(aes(
+    x = 40,
+    xend = lifeExp,
+    y = reorder(country, lifeExp),
+    yend = country
+  ),
+  color = "grey",) +
+  geom_point(color = "blue",
+             size = 2) +
+  labs(title = "Life Expectancy by Country",
+       subtitle = "GapMinder data for Asia - 2007",
+       x = "Life Expectancy (years)") +
+  theme_light() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.border = element_blank(),
+    panel.background = element_blank(),
+    axis.ticks.y = element_blank()
+  )
 ```
 
 
