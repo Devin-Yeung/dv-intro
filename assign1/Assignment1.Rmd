@@ -1,0 +1,72 @@
+---
+title: 'Assignment 1'
+output: html_document
+---
+
+```{r}
+# Construct a list 
+Zhuhai <- c("Mostly Sunny", 29, 14)
+Wuhan <- c("Mostly Sunny", 30, 19)
+Shanghai <- c("Cloudy", 26, 12)
+Beijing <- c("Rainy", 19, 10)
+weather <- list(Zhuhai, Wuhan, Shanghai, Beijing)
+print(weather)
+```
+
+
+```{r}
+weather <- data.frame(
+  city = c("Zhuhai", "Wuhan", "Shanghai", "Beijing"),
+  weather = c("Sunny", "Sunny", "Cloudy", "Rainy"),
+  high_Tem = c(20, 21, 16, 19),
+  low_Tem = c(14, 19, 12, 15)
+)
+print(weather)
+```
+
+
+```{r, warning=FALSE, message=FALSE}
+# Loading package 
+library(dplyr)
+
+# Read fuel economy data from the file named 'fuel_economy.csv' and 
+# assign it to the variable 'fuel_eco'
+fuel_eco <- read.csv("fuel_economy.csv")
+
+# Select the variables manufacturer, model, year, and fl 
+newdata <- fuel_eco %>%
+  select(manufacturer, model, year, fl)
+
+# Print the variable names
+print(colnames(newdata))
+
+# Select all the variables except cty and hwy
+newdata <- fuel_eco %>%
+  select(-cty, -hwy)
+
+# Print the variable names
+print(colnames(newdata))
+
+# Select the models that are suv classes and contain 4 cylinders (variable: cyl)
+newdata <- fuel_eco %>%
+  filter(class == "suv" & cyl == 4)
+
+
+# Print the selected models
+print(newdata)
+
+
+# Calculate the mean displacement (variable: displ) and mean highway miles per gallon (variable: hwy)
+newdata <- fuel_eco %>% 
+  summarize(mean_displ = mean(displ), mean_hwy = mean(hwy))
+
+print(newdata)
+
+# Calculate the mean of displ and hwy for 8 cylinders models by manufacture
+newdata <- fuel_eco %>%
+  filter(cyl == 8) %>%
+  group_by(manufacturer) %>%
+  summarize(mean_displ = mean(displ), mean_hwy = mean(hwy))
+  
+print(newdata)
+```
