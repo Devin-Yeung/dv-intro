@@ -11,7 +11,7 @@
 
 
 
-<title>Lab3: Data Preparation</title>
+<title>Assignment 1</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,409 +354,107 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Lab3: Data Preparation</h1>
+<h1 class="title toc-ignore">Assignment 1</h1>
 
 </div>
 
 
-<div id="data-visualization" class="section level2">
-<h2>Data Visualization</h2>
-<p><strong>Setup</strong></p>
-<p>In order to import and clean data in this guide, you’ll need to install some optional R packages. To install all of the necessary packages, run the following code in the RStudio <strong>console</strong> window:</p>
-<pre class="r"><code># Define the variable pkgs that contatins all the required packages and install them.
-
-pkgs &lt;- c(&quot;readr&quot;, &quot;readxl&quot;, &quot;haven&quot;, &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;VIM&quot;)
-install.packages(pkgs)</code></pre>
-<p>Before you can visualize your data, you have to get it into R. This involves importing the data from an external source and massaging it into a useful format.</p>
-</div>
-<div id="importing-data" class="section level1">
-<h1>1 Importing data</h1>
-<p>R can import data from almost any source, including text files, excel spreadsheets, statistical packages, and database management systems. We’ll illustrate these techniques using the Salaries dataset, containing the 9 month academic salaries of college professors at a single institution in 2008-2009.</p>
-<div id="text-files" class="section level2">
-<h2>1.1 Text files</h2>
-<p>The <code>readr</code> package provides functions for importing delimited text files into R data frames.</p>
-<pre class="r"><code># loading package
-library(readr)
-
-# import data from a comma delimited file
-Salaries1 &lt;- read_csv(&quot;salaries.csv&quot;)</code></pre>
-<pre><code>## Rows: 397 Columns: 6
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (3): rank, discipline, sex
-## dbl (3): yrs.since.phd, yrs.service, salary
+<pre class="r"><code># Construct a list 
+Zhuhai &lt;- c(&quot;Mostly Sunny&quot;, 29, 14)
+Wuhan &lt;- c(&quot;Mostly Sunny&quot;, 30, 19)
+Shanghai &lt;- c(&quot;Cloudy&quot;, 26, 12)
+Beijing &lt;- c(&quot;Rainy&quot;, 19, 10)
+weather &lt;- list(Zhuhai, Wuhan, Shanghai, Beijing)
+print(weather)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Mostly Sunny&quot; &quot;29&quot;           &quot;14&quot;          
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code># import data from a tab delimited file
-Salaries2 &lt;- read_tsv(&quot;salaries.txt&quot;)</code></pre>
-<pre><code>## Rows: 397 Columns: 6
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;\t&quot;
-## chr (3): rank, discipline, sex
-## dbl (3): yrs.since.phd, yrs.service, salary
+## [[2]]
+## [1] &quot;Mostly Sunny&quot; &quot;30&quot;           &quot;19&quot;          
 ## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<p>These function assume that the first line of data contains the variable names, values are separated by commas or tabs respectively, and that missing data are represented by blanks. For example, the first few lines of the comma delimited file looks like this.</p>
-<pre class="r"><code># &quot;rank&quot;,&quot;discipline&quot;,&quot;yrs.since.phd&quot;,&quot;yrs.service&quot;,&quot;sex&quot;,&quot;salary&quot;
-# &quot;Prof&quot;,&quot;B&quot;,19,18,&quot;Male&quot;,139750
-# &quot;Prof&quot;,&quot;B&quot;,20,16,&quot;Male&quot;,173200
-# &quot;AsstProf&quot;,&quot;B&quot;,4,3,&quot;Male&quot;,79750
-# &quot;Prof&quot;,&quot;B&quot;,45,39,&quot;Male&quot;,115000
-# &quot;Prof&quot;,&quot;B&quot;,40,41,&quot;Male&quot;,141500
-# &quot;AssocProf&quot;,&quot;B&quot;,6,6,&quot;Male&quot;,97000</code></pre>
-<p>The <code>readxl</code> package can import data from Excel workbooks. Both xls and xlsx formats are supported.</p>
-<pre class="r"><code># loading package
-library(readxl)
-
-# import data from an Excel workbook
-Salaries3 &lt;- read_excel(&quot;salaries.xlsx&quot;, sheet = 1)</code></pre>
-<p>Since workbooks can have more than one worksheet, you can specify the one you want with the sheet option. The default is <code>sheet=1</code>.</p>
-</div>
-<div id="statistical-packages" class="section level2">
-<h2>1.3 Statistical packages</h2>
-<p>The haven package provides functions for importing data from a variety of statistical packages.</p>
-<pre class="r"><code># loading package
-library(haven)
-
-# import data from Stata
-Salaries &lt;- read_dta(&quot;salaries.dta&quot;)
-
-# import data from SPSS
-Salaries &lt;- read_sav(&quot;salaries.sav&quot;)
-
-# import data from SAS
-Salaries &lt;- read_sas(&quot;salaries.sas7bdat&quot;)</code></pre>
-</div>
-</div>
-<div id="cleaning-data" class="section level1">
-<h1>2 Cleaning data</h1>
-<p>The processes of cleaning your data can be the most time-consuming part of any data analysis. The most important steps are considered below. While there are many approaches, those using the <code>dplyr</code> and <code>tidyr</code> packages are some of the quickest and easiest to learn.</p>
-<p>Examples in this section will use the <code>starwars</code> dataset from the <code>dplyr</code> package. The dataset provides descriptions of 87 characters from the Star Wars universe on 13 variables.</p>
-<div id="selecting-variables" class="section level2">
-<h2>2.1 Selecting variables</h2>
-<p>The <code>select</code> function allows you to limit your dataset to specified variables (columns).</p>
-<pre class="r"><code># loading package
-library(dplyr)
-
-# keep the variables name, height, and gender
-newdata &lt;- select(starwars, name, height, gender)
-
-# keep the variables name and all variables between mass and species inclusive
-newdata &lt;- select(starwars, name, mass:species)</code></pre>
-<p><span class="math inline">\(\color{red}{\text{In class exercise}}\)</span></p>
-<pre class="r"><code># keep all variables except birth_year and gender
-# write your answer here
-newdata &lt;- select(starwars, -birth_year, -gender)
-print(newdata)</code></pre>
-<pre><code>## # A tibble: 87 × 12
-##    name     height  mass hair_color skin_color eye_color sex   homeworld species
-##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;  
-##  1 Luke Sk…    172    77 blond      fair       blue      male  Tatooine  Human  
-##  2 C-3PO       167    75 &lt;NA&gt;       gold       yellow    none  Tatooine  Droid  
-##  3 R2-D2        96    32 &lt;NA&gt;       white, bl… red       none  Naboo     Droid  
-##  4 Darth V…    202   136 none       white      yellow    male  Tatooine  Human  
-##  5 Leia Or…    150    49 brown      light      brown     fema… Alderaan  Human  
-##  6 Owen La…    178   120 brown, gr… light      blue      male  Tatooine  Human  
-##  7 Beru Wh…    165    75 brown      light      blue      fema… Tatooine  Human  
-##  8 R5-D4        97    32 &lt;NA&gt;       white, red red       none  Tatooine  Droid  
-##  9 Biggs D…    183    84 black      light      brown     male  Tatooine  Human  
-## 10 Obi-Wan…    182    77 auburn, w… fair       blue-gray male  Stewjon   Human  
-## # ℹ 77 more rows
-## # ℹ 3 more variables: films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-</div>
-<div id="selecting-observations" class="section level2">
-<h2>2.2 Selecting observations</h2>
-<p>The <code>filter</code> function allows you to limit your dataset to observations (rows) meeting a specific criteria. Multiple criteria can be combined with the <code>&amp;</code> (AND) and <code>|</code> (OR) symbols.</p>
-<pre class="r"><code># loading package
-library(dplyr)
-
-# select females
-newdata &lt;- filter(
-  starwars,
-  gender == &quot;feminine&quot;
-)
-
-# select females that are from Alderaan
-newdata &lt;- filter(
-  starwars,
-  gender == &quot;feminine&quot; &amp;
-    homeworld == &quot;Alderaan&quot;
-)
-
-
-# select individuals that are from Alderaan, Coruscant, or Endor
-newdata &lt;- filter(
-  starwars,
-  homeworld == &quot;Alderaan&quot; |
-    homeworld == &quot;Coruscant&quot; |
-    homeworld == &quot;Endor&quot;
-)
-
-# this can be written more succinctly as
-newdata &lt;- filter(
-  starwars,
-  homeworld %in% c(&quot;Alderaan&quot;, &quot;Coruscant&quot;, &quot;Endor&quot;)
-)</code></pre>
-<p><span class="math inline">\(\color{red}{\text{In class exercise}}\)</span></p>
-<pre class="r"><code># select individuals who is human and higher than 1.7
-# write your answer here
-newdata &lt;- filter(
-  starwars,
-  species == &quot;Human&quot;,
-  height &gt;= 170
-)
-print(newdata)</code></pre>
-<pre><code>## # A tibble: 23 × 14
-##    name     height  mass hair_color skin_color eye_color birth_year sex   gender
-##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
-##  1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu…
-##  2 Darth V…    202   136 none       white      yellow          41.9 male  mascu…
-##  3 Owen La…    178   120 brown, gr… light      blue            52   male  mascu…
-##  4 Biggs D…    183    84 black      light      brown           24   male  mascu…
-##  5 Obi-Wan…    182    77 auburn, w… fair       blue-gray       57   male  mascu…
-##  6 Anakin …    188    84 blond      fair       blue            41.9 male  mascu…
-##  7 Wilhuff…    180    NA auburn, g… fair       blue            64   male  mascu…
-##  8 Han Solo    180    80 brown      fair       brown           29   male  mascu…
-##  9 Wedge A…    170    77 brown      fair       hazel           21   male  mascu…
-## 10 Jek Ton…    180   110 brown      fair       blue            NA   male  mascu…
-## # ℹ 13 more rows
-## # ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
-## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-</div>
-<div id="creatingrecoding-variables" class="section level2">
-<h2>2.3 Creating/Recoding variables</h2>
-<p>The <code>mutate</code> function allows you to create new variables or transform existing ones.</p>
-<pre class="r"><code># loading package
-library(dplyr)
-
-# convert height in centimeters to inches,
-# and mass in kilograms to pounds
-newdata &lt;- mutate(starwars,
-  height = height * 0.394,
-  mass = mass * 2.205
-)</code></pre>
-<p>The <code>ifelse</code> function (part of base R) can be used for recoding data. The format is <code>ifelse(test, return if TRUE, return if FALSE)</code>.</p>
-<pre class="r"><code># loading package
-library(dplyr)
-
-# if height is greater than 180
-# then heightcat = &quot;tall&quot;,
-# otherwise heightcat = &quot;short&quot;
-
-newdata &lt;- mutate(starwars, heightcat = ifelse(height &gt; 180, &quot;tall&quot;, &quot;short&quot;))
-
-# set heights greater than 200 or less than 75 to missing
-newdata &lt;- mutate(starwars,
-  height = ifelse(height &lt; 75 | height &gt; 200,
-    NA, height
-  )
-)</code></pre>
-<p><span class="math inline">\(\color{red}{\text{In class exercise}}\)</span></p>
-<pre class="r"><code># convert any eye color that is not black, blue or brown, to other
-# write your answer here
-allowed_eye_colors &lt;- c(&quot;black&quot;, &quot;blue&quot;, &quot;brown&quot;)
-newdata &lt;- mutate(starwars, eye_color = ifelse(eye_color %in% allowed_eye_colors, eye_color, &quot;other&quot;))
-print(newdata)</code></pre>
-<pre><code>## # A tibble: 87 × 14
-##    name     height  mass hair_color skin_color eye_color birth_year sex   gender
-##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
-##  1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu…
-##  2 C-3PO       167    75 &lt;NA&gt;       gold       other          112   none  mascu…
-##  3 R2-D2        96    32 &lt;NA&gt;       white, bl… other           33   none  mascu…
-##  4 Darth V…    202   136 none       white      other           41.9 male  mascu…
-##  5 Leia Or…    150    49 brown      light      brown           19   fema… femin…
-##  6 Owen La…    178   120 brown, gr… light      blue            52   male  mascu…
-##  7 Beru Wh…    165    75 brown      light      blue            47   fema… femin…
-##  8 R5-D4        97    32 &lt;NA&gt;       white, red other           NA   none  mascu…
-##  9 Biggs D…    183    84 black      light      brown           24   male  mascu…
-## 10 Obi-Wan…    182    77 auburn, w… fair       other           57   male  mascu…
-## # ℹ 77 more rows
-## # ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
-## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
-</div>
-<div id="summarizing-data" class="section level2">
-<h2>2.4 Summarizing data</h2>
-<p>The <code>summarize</code> function can be used to reduce multiple values down to a single value (such as a mean). It is often used in conjunction with the <code>by_group</code> function, to calculate statistics by group. In the code below, the <code>na.rm=TRUE</code> option is used to drop missing values before calculating the means.</p>
-<pre class="r"><code>library(dplyr)
-# calculate mean height and mass
-newdata &lt;- summarize(starwars,
-  mean_ht = mean(height, na.rm = TRUE),
-  mean_mass = mean(mass, na.rm = TRUE)
-)
-newdata</code></pre>
-<pre><code>## # A tibble: 1 × 2
-##   mean_ht mean_mass
-##     &lt;dbl&gt;     &lt;dbl&gt;
-## 1    174.      97.3</code></pre>
-<pre class="r"><code># calculate mean height and weight by gender
-newdata &lt;- group_by(starwars, gender)
-newdata &lt;- summarize(newdata,
-  mean_ht = mean(height, na.rm = TRUE),
-  mean_wt = mean(mass, na.rm = TRUE)
-)
-print(newdata)</code></pre>
-<pre><code>## # A tibble: 3 × 3
-##   gender    mean_ht mean_wt
-##   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-## 1 feminine     165.    54.7
-## 2 masculine    177.   106. 
-## 3 &lt;NA&gt;         181.    48</code></pre>
-</div>
-<div id="using-pipes" class="section level2">
-<h2>2.5 Using pipes</h2>
-<p>Packages like <code>dplyr</code> and <code>tidyr</code> allow you to write your code in a compact format using the pipe <code>%&gt;%</code> operator. Here is an example.</p>
-<pre class="r"><code>library(dplyr)
-
-# calculate the mean height for women by species
-newdata &lt;- filter(starwars, gender == &quot;feminine&quot;)
-newdata &lt;- group_by(newdata, species)
-newdata &lt;- summarize(newdata, mean_ht = mean(height, na.rm = TRUE))
-
-# this can be written as
-newdata &lt;- starwars %&gt;%
-  filter(gender == &quot;feminine&quot;) %&gt;%
-  group_by(species) %&gt;%
-  summarize(mean_ht = mean(height, na.rm = TRUE))</code></pre>
-<p>The <code>%&gt;%</code> operator passes the result on the left to the first parameter of the function on the right.</p>
-</div>
-<div id="reshaping-data" class="section level2">
-<h2>2.6 Reshaping data</h2>
-<p>Some graphs require the data to be in wide format, while some graphs require the data to be in long format.</p>
-<pre class="r"><code># loading package
-library(tidyr)
-
-# define a wide dataset
-wide_data &lt;- data.frame(
-  id = c(01, 02, 03),
-  name = c(&quot;Bill&quot;, &quot;Bob&quot;, &quot;Mary&quot;),
-  sex = c(&quot;Male&quot;, &quot;Male&quot;, &quot;Female&quot;),
-  age = c(&quot;22&quot;, &quot;35&quot;, &quot;48&quot;),
-  income = c(40000, 90000, 150000)
-)
-wide_data</code></pre>
-<pre><code>##   id name    sex age income
-## 1  1 Bill   Male  22  40000
-## 2  2  Bob   Male  35  90000
-## 3  3 Mary Female  48 150000</code></pre>
-<pre class="r"><code># convert a wide dataset to a long dataset
-long_data &lt;- gather(wide_data,
-  key = &quot;variable&quot;,
-  value = &quot;value&quot;,
-  sex:income
-)
-print(long_data)</code></pre>
-<pre><code>##   id name variable  value
-## 1  1 Bill      sex   Male
-## 2  2  Bob      sex   Male
-## 3  3 Mary      sex Female
-## 4  1 Bill      age     22
-## 5  2  Bob      age     35
-## 6  3 Mary      age     48
-## 7  1 Bill   income  40000
-## 8  2  Bob   income  90000
-## 9  3 Mary   income 150000</code></pre>
-<p>Conversely, you can convert a long dataset to a wide dataset using</p>
-<pre class="r"><code># loading package
-library(tidyr)
-
-# convert a long dataset to a wide dataset
-wide_data &lt;- spread(long_data, variable, value)
-print(wide_data)</code></pre>
-<pre><code>##   id name age income    sex
-## 1  1 Bill  22  40000   Male
-## 2  2  Bob  35  90000   Male
-## 3  3 Mary  48 150000 Female</code></pre>
-</div>
-<div id="missing-data" class="section level2">
-<h2>2.7 Missing data</h2>
-<p>Real data are likely to contain missing values. There are three basic approaches to dealing with missing data: feature selection, listwise deletion, and imputation. Let’s see how each applies to the <code>msleep</code> dataset from the <code>ggplot2</code> package. The <code>msleep</code> dataset describes the sleep habits of mammals and contains missing values on several variables.</p>
-<div id="feature-selection" class="section level3">
-<h3>2.7.1 Feature selection</h3>
-<p>In feature selection, you delete variables (columns) that contain too many missing values.</p>
-<pre class="r"><code># loading data
-data(msleep, package = &quot;ggplot2&quot;)
-
-# what is the proportion of missing data for each variable?
-pctmiss &lt;- colSums(is.na(msleep)) / nrow(msleep)
-round(pctmiss, 2)</code></pre>
-<pre><code>##         name        genus         vore        order conservation  sleep_total 
-##         0.00         0.00         0.08         0.00         0.35         0.00 
-##    sleep_rem  sleep_cycle        awake      brainwt       bodywt 
-##         0.27         0.61         0.00         0.33         0.00</code></pre>
-</div>
-<div id="listwise-deletion" class="section level3">
-<h3>2.7.2 Listwise deletion</h3>
-<p>Listwise deletion involves deleting observations (rows) that contain missing values on <em>any</em> of the variables of interest.</p>
-<pre class="r"><code># Create a dataset containing genus, vore, and conservation.
-# Delete any rows containing missing data.
-newdata &lt;- select(msleep, genus, vore, conservation)
-newdata &lt;- na.omit(newdata)</code></pre>
-</div>
-<div id="imputation" class="section level3">
-<h3>2.7.3 Imputation</h3>
-<p>Imputation involves replacing missing values with “reasonable” guesses about what the values would have been if they had not been missing. There are several approaches, as detailed in such packages as <code>VIM</code>, <code>mice</code>, <code>Amelia</code> and <code>missForest</code>. Here we will use the <code>kNN</code> function from the <code>VIM</code> package to replace missing values with imputed values.</p>
-<pre class="r"><code># loading package
-library(VIM)</code></pre>
-<pre><code>## Loading required package: colorspace</code></pre>
-<pre><code>## Loading required package: grid</code></pre>
-<pre><code>## VIM is ready to use.</code></pre>
-<pre><code>## Suggestions and bug-reports can be submitted at: https://github.com/statistikat/VIM/issues</code></pre>
-<pre><code>## 
-## Attaching package: &#39;VIM&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:datasets&#39;:
+## [[3]]
+## [1] &quot;Cloudy&quot; &quot;26&quot;     &quot;12&quot;    
 ## 
-##     sleep</code></pre>
-<pre class="r"><code># Impute missing values using the 5 nearest neighbors
-newdata &lt;- kNN(msleep, k = 5)</code></pre>
-<p>Basically, for each case with a missing value, the k most similar cases not having a missing value are selected. If the missing value is numeric, the mean of those k cases is used as the imputed value. If the missing value is categorical, the most frequent value from the k cases is used. The process iterates over cases and variables until the results converge (become stable).</p>
-<p><span class="math inline">\(\color{red}{\text{ # 3 In-class exercise}}\)</span></p>
-<p>Please download the <code>Salaries.txt</code> from iSpace and complete the following requirements.</p>
-<pre class="r"><code># loading package
-library(dplyr)
-library(readr)
-
-# Please read Salaries data from the file Salaries.csv
-# write your answer here
-df &lt;- read_csv(&quot;salaries.csv&quot;)</code></pre>
-<pre><code>## Rows: 397 Columns: 6
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (3): rank, discipline, sex
-## dbl (3): yrs.since.phd, yrs.service, salary
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code># Select the female professors whose salaries are between 80000 and 100000
-# write your answer here
-female_high_salaries &lt;- df %&gt;% filter(
-  rank == &quot;Prof&quot; &amp;
-    sex == &quot;Female&quot; &amp;
-    (salary &gt;= 80000 &amp; salary &lt;= 100000)
+## [[4]]
+## [1] &quot;Rainy&quot; &quot;19&quot;    &quot;10&quot;</code></pre>
+<pre class="r"><code>weather &lt;- data.frame(
+  city = c(&quot;Zhuhai&quot;, &quot;Wuhan&quot;, &quot;Shanghai&quot;, &quot;Beijing&quot;),
+  weather = c(&quot;Sunny&quot;, &quot;Sunny&quot;, &quot;Cloudy&quot;, &quot;Rainy&quot;),
+  high_Tem = c(20, 21, 16, 19),
+  low_Tem = c(14, 19, 12, 15)
 )
-print(female_high_salaries)</code></pre>
-<pre><code>## # A tibble: 2 × 6
-##   rank  discipline yrs.since.phd yrs.service sex    salary
-##   &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;
-## 1 Prof  A                     29          27 Female  91000
-## 2 Prof  A                     17          11 Female  90450</code></pre>
-<pre class="r"><code># Calculate the mean of income of professors grouped by sex
-# write your answer here
-mean_income_by_sex &lt;- df %&gt;%
-  group_by(sex) %&gt;%
-  summarize(mean_income = mean(salary))
+print(weather)</code></pre>
+<pre><code>##       city weather high_Tem low_Tem
+## 1   Zhuhai   Sunny       20      14
+## 2    Wuhan   Sunny       21      19
+## 3 Shanghai  Cloudy       16      12
+## 4  Beijing   Rainy       19      15</code></pre>
+<pre class="r"><code># Loading package 
+library(dplyr)
 
-print(mean_income_by_sex)</code></pre>
-<pre><code>## # A tibble: 2 × 2
-##   sex    mean_income
-##   &lt;chr&gt;        &lt;dbl&gt;
-## 1 Female     101002.
-## 2 Male       115090.</code></pre>
-<pre class="r"><code># using pipe %&gt;% operator in your answer for last question</code></pre>
-</div>
-</div>
-</div>
+# Read fuel economy data from the file named &#39;fuel_economy.csv&#39; and 
+# assign it to the variable &#39;fuel_eco&#39;
+fuel_eco &lt;- read.csv(&quot;fuel_economy.csv&quot;)
+
+# Select the variables manufacturer, model, year, and fl 
+newdata &lt;- fuel_eco %&gt;%
+  select(manufacturer, model, year, fl)
+
+# Print the variable names
+print(colnames(newdata))</code></pre>
+<pre><code>## [1] &quot;manufacturer&quot; &quot;model&quot;        &quot;year&quot;         &quot;fl&quot;</code></pre>
+<pre class="r"><code># Select all the variables except cty and hwy
+newdata &lt;- fuel_eco %&gt;%
+  select(-cty, -hwy)
+
+# Print the variable names
+print(colnames(newdata))</code></pre>
+<pre><code>##  [1] &quot;X&quot;            &quot;manufacturer&quot; &quot;model&quot;        &quot;displ&quot;        &quot;year&quot;        
+##  [6] &quot;cyl&quot;          &quot;trans&quot;        &quot;drv&quot;          &quot;fl&quot;           &quot;class&quot;</code></pre>
+<pre class="r"><code># Select the models that are suv classes and contain 4 cylinders (variable: cyl)
+newdata &lt;- fuel_eco %&gt;%
+  filter(class == &quot;suv&quot; &amp; cyl == 4)
+
+
+# Print the selected models
+print(newdata)</code></pre>
+<pre><code>##     X manufacturer        model displ year cyl      trans drv cty hwy fl class
+## 1 160       subaru forester awd   2.5 1999   4 manual(m5)   4  18  25  r   suv
+## 2 161       subaru forester awd   2.5 1999   4   auto(l4)   4  18  24  r   suv
+## 3 162       subaru forester awd   2.5 2008   4 manual(m5)   4  20  27  r   suv
+## 4 163       subaru forester awd   2.5 2008   4 manual(m5)   4  19  25  p   suv
+## 5 164       subaru forester awd   2.5 2008   4   auto(l4)   4  20  26  r   suv
+## 6 165       subaru forester awd   2.5 2008   4   auto(l4)   4  18  23  p   suv
+## 7 174       toyota  4runner 4wd   2.7 1999   4 manual(m5)   4  15  20  r   suv
+## 8 175       toyota  4runner 4wd   2.7 1999   4   auto(l4)   4  16  20  r   suv</code></pre>
+<pre class="r"><code># Calculate the mean displacement (variable: displ) and mean highway miles per gallon (variable: hwy)
+newdata &lt;- fuel_eco %&gt;% 
+  summarize(mean_displ = mean(displ), mean_hwy = mean(hwy))
+
+print(newdata)</code></pre>
+<pre><code>##   mean_displ mean_hwy
+## 1   3.471795 23.44017</code></pre>
+<pre class="r"><code># Calculate the mean of displ and hwy for 8 cylinders models by manufacture
+newdata &lt;- fuel_eco %&gt;%
+  filter(cyl == 8) %&gt;%
+  group_by(manufacturer) %&gt;%
+  summarize(mean_displ = mean(displ), mean_hwy = mean(hwy))
+  
+print(newdata)</code></pre>
+<pre><code>## # A tibble: 11 × 3
+##    manufacturer mean_displ mean_hwy
+##    &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;
+##  1 audi               4.2      23  
+##  2 chevrolet          5.8      19.9
+##  3 dodge              5.03     15.7
+##  4 ford               4.89     18.5
+##  5 jeep               5.18     16  
+##  6 land rover         4.3      16.5
+##  7 lincoln            5.4      17  
+##  8 mercury            4.8      18  
+##  9 nissan             5.6      18  
+## 10 pontiac            5.3      25  
+## 11 toyota             5.03     16.7</code></pre>
 
 
 

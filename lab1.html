@@ -440,7 +440,7 @@ e) Standardize the matrix A such that columns of A are centered to have mean 0 a
 <pre class="r"><code># Write your answer here
 
 # assign the last 2 rows of A to a matrix called y
-y &lt;- A[2:3,]
+y &lt;- A[2:3, ]
 print(y)</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    6    7    2
@@ -490,12 +490,12 @@ death_rate_std_dv &lt;- sd(df$deathrate)
 print(death_rate_std_dv)</code></pre>
 <pre><code>## [1] 4.475512</code></pre>
 <pre class="r"><code># What is the range of GDP for the countries in which death rate is greater than 8?
-death_rate_ge_8 &lt;- df[df$deathrate &gt; 8,]
+death_rate_ge_8 &lt;- df[df$deathrate &gt; 8, ]
 gdp_range &lt;- range(death_rate_ge_8$gdp)
 print(gdp_range)</code></pre>
 <pre><code>## [1]   120 22470</code></pre>
 <pre class="r"><code># What is the mean of GDP for the developing countries which have death rate higher than 10?
-developing_death_rate_ge_10 &lt;- df[df$develop == 1 &amp; df$deathrate &gt; 10,]
+developing_death_rate_ge_10 &lt;- df[df$develop == 1 &amp; df$deathrate &gt; 10, ]
 mean_gdp &lt;- mean(developing_death_rate_ge_10$gdp)
 print(mean_gdp)</code></pre>
 <pre><code>## [1] 479.8462</code></pre>
@@ -520,7 +520,7 @@ Fibonacci &lt;- function(n) {
   }
 
   af &lt;- mean(F) # write your answer here
-  cat(paste(&#39;The first&#39;, n, &#39;Fibonacci numbers are:&#39;), &#39;\n&#39;, F[1:n], &#39;\n&#39;, paste(&#39;the average is&#39;, af))
+  cat(paste(&quot;The first&quot;, n, &quot;Fibonacci numbers are:&quot;), &quot;\n&quot;, F[1:n], &quot;\n&quot;, paste(&quot;the average is&quot;, af))
 }
 Fibonacci(20)</code></pre>
 <pre><code>## The first 20 Fibonacci numbers are: 

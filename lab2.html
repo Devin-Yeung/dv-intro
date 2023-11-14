@@ -423,7 +423,7 @@ print(seq(5, 9, by = 0.4))</code></pre>
 <pre><code>##  [1] 5.0 5.4 5.8 6.2 6.6 7.0 7.4 7.8 8.2 8.6 9.0</code></pre>
 <pre class="r"><code># 3. Using the c() function
 # The logical and numeric values are converted to characters.
-s &lt;- c(&#39;apple&#39;, &#39;red&#39;, 5, TRUE)
+s &lt;- c(&quot;apple&quot;, &quot;red&quot;, 5, TRUE)
 print(s)</code></pre>
 <pre><code>## [1] &quot;apple&quot; &quot;red&quot;   &quot;5&quot;     &quot;TRUE&quot;</code></pre>
 <pre class="r"><code>print(class(s[3]))</code></pre>
@@ -526,8 +526,8 @@ print(M)</code></pre>
 ## [3,]    9   10   11
 ## [4,]   12   13   14</code></pre>
 <pre class="r"><code># Define the column and row names.
-rownames = c(&quot;row1&quot;, &quot;row2&quot;, &quot;row3&quot;, &quot;row4&quot;)
-colnames = c(&quot;col1&quot;, &quot;col2&quot;, &quot;col3&quot;)
+rownames &lt;- c(&quot;row1&quot;, &quot;row2&quot;, &quot;row3&quot;, &quot;row4&quot;)
+colnames &lt;- c(&quot;col1&quot;, &quot;col2&quot;, &quot;col3&quot;)
 
 P &lt;- matrix(c(3:14), nrow = 4, byrow = TRUE, dimnames = list(rownames, colnames))
 print(P)</code></pre>
@@ -605,7 +605,7 @@ print(sorted_matrix)</code></pre>
 <h1>1.5 Factors</h1>
 <p>Factors are the R-objects which are created using a vector. It stores the vector along with the distinct values of the elements in the vector as labels.</p>
 <pre class="r"><code># Create a vector
-apple_colors &lt;- c(&#39;green&#39;, &#39;green&#39;, &#39;yellow&#39;, &#39;red&#39;, &#39;red&#39;, &#39;red&#39;, &#39;green&#39;)
+apple_colors &lt;- c(&quot;green&quot;, &quot;green&quot;, &quot;yellow&quot;, &quot;red&quot;, &quot;red&quot;, &quot;red&quot;, &quot;green&quot;)
 
 # Create a factor object
 factor_apple &lt;- factor(apple_colors)
@@ -623,9 +623,10 @@ emp.data &lt;- data.frame(
   emp_id = c(1:5),
   emp_name = c(&quot;Rick&quot;, &quot;Dan&quot;, &quot;Michelle&quot;, &quot;Ryan&quot;, &quot;Gary&quot;),
   salary = c(623.3, 515.2, 611.0, 729.0, 843.25),
-
-  start_date = as.Date(c(&quot;2012-01-01&quot;, &quot;2013-09-23&quot;, &quot;2014-11-15&quot;, &quot;2014-05-11&quot;,
-                         &quot;2015-03-27&quot;)),
+  start_date = as.Date(c(
+    &quot;2012-01-01&quot;, &quot;2013-09-23&quot;, &quot;2014-11-15&quot;, &quot;2014-05-11&quot;,
+    &quot;2015-03-27&quot;
+  )),
   stringsAsFactors = FALSE
 )
 print(emp.data)</code></pre>
@@ -645,13 +646,19 @@ print(result)</code></pre>
 ## 4              Ryan          729.00
 ## 5              Gary          843.25</code></pre>
 <p><span class="math inline">\(\color{red}{\text{In class exercise}}\)</span></p>
-<pre class="r"><code>#Q1: Given column vectors, use cbind() to combine multiple vectors column by column to form a new data frame
-car_models &lt;- c(&#39;Maruti&#39;, &#39;Hyundai&#39;, &#39;Tata&#39;,
-                &#39;Ford&#39;, &#39;Nissan&#39;, &#39;Toyota&#39;)
-car_type &lt;- c(&#39;Diesel&#39;, &#39;Petrol&#39;, &#39;Petrol&#39;,
-              &#39;Diesel&#39;, &#39;Petrol&#39;, &#39;Diesel&#39;)
-car_color &lt;- c(&#39;Red&#39;, &#39;Blue&#39;, &#39;Red&#39;,
-               &#39;Red&#39;, &#39;Blue&#39;, &#39;Red&#39;)
+<pre class="r"><code># Q1: Given column vectors, use cbind() to combine multiple vectors column by column to form a new data frame
+car_models &lt;- c(
+  &quot;Maruti&quot;, &quot;Hyundai&quot;, &quot;Tata&quot;,
+  &quot;Ford&quot;, &quot;Nissan&quot;, &quot;Toyota&quot;
+)
+car_type &lt;- c(
+  &quot;Diesel&quot;, &quot;Petrol&quot;, &quot;Petrol&quot;,
+  &quot;Diesel&quot;, &quot;Petrol&quot;, &quot;Diesel&quot;
+)
+car_color &lt;- c(
+  &quot;Red&quot;, &quot;Blue&quot;, &quot;Red&quot;,
+  &quot;Red&quot;, &quot;Blue&quot;, &quot;Red&quot;
+)
 year &lt;- c(2001, 2011, 2013, 2012, 2021, 2021)
 # write your answer here:
 car_data &lt;- cbind(car_models, car_type, car_color, year)
@@ -706,7 +713,7 @@ for (x in fruits) {
 <div id="file-handling" class="section level1">
 <h1>3. File Handling</h1>
 <p>In R Programming, handling of files such as reading and writing files can be done by using in-built functions present in R base package.</p>
-<pre class="r"><code>#data=read.table(file.choose(),header=T)
+<pre class="r"><code># data=read.table(file.choose(),header=T)
 data &lt;- read.table(file = &quot;./country.txt&quot;, header = T)
 print(is.data.frame(data))</code></pre>
 <pre><code>## [1] TRUE</code></pre>
@@ -714,7 +721,7 @@ print(is.data.frame(data))</code></pre>
 <pre><code>## [1] 11</code></pre>
 <pre class="r"><code>print(nrow(data))</code></pre>
 <pre><code>## [1] 115</code></pre>
-<pre class="r"><code>#print(data)</code></pre>
+<pre class="r"><code># print(data)</code></pre>
 <p><span class="math inline">\(\color{red}{\text{In class exercise}}\)</span></p>
 <pre class="r"><code># Q1: print the first 11 rows of data
 print(head(data, 11))</code></pre>
@@ -747,7 +754,7 @@ max_gdp &lt;- max(data$gdp)
 print(max_gdp)</code></pre>
 <pre><code>## [1] 22470</code></pre>
 <pre class="r"><code># Q3: Get the country detail with max gdp
-country_max_gdp &lt;- data[data$gdp == max_gdp,]
+country_max_gdp &lt;- data[data$gdp == max_gdp, ]
 print(country_max_gdp)</code></pre>
 <pre><code>##          country urban   gdp lifeexpm lifeexpf birthrate deathrate develop
 ## 61 United_States    76 22470       72       79        14         9       0
@@ -803,7 +810,7 @@ print(country20)</code></pre>
 ## 19       1 20.00   46.30 2.65
 ## 20       1 10.31   21.01 0.43</code></pre>
 <pre class="r"><code># Q7: What is the mean of GDP for the developing countries which have death rate higher than 10?
-high_death_rate_gdp &lt;- data[data$deathrate &gt; 10,]$gdp
+high_death_rate_gdp &lt;- data[data$deathrate &gt; 10, ]$gdp
 print(mean(high_death_rate_gdp))</code></pre>
 <pre><code>## [1] 2576.283</code></pre>
 </div>
@@ -851,7 +858,7 @@ new.function(6)</code></pre>
   }
 
   af &lt;- mean(F) # write your answer here
-  cat(paste(&#39;The first&#39;, n, &#39;Fibonacci numbers are:&#39;), &#39;\n&#39;, F[1:n], &#39;\n&#39;, paste(&#39;the average is&#39;, af))
+  cat(paste(&quot;The first&quot;, n, &quot;Fibonacci numbers are:&quot;), &quot;\n&quot;, F[1:n], &quot;\n&quot;, paste(&quot;the average is&quot;, af))
 }
 Fibonacci(20)</code></pre>
 <pre><code>## The first 20 Fibonacci numbers are: 
