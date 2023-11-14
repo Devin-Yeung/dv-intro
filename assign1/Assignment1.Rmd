@@ -83,19 +83,19 @@ df <- data.frame(
 # write your code here
 ggplot(df, aes(x = value)) +
   geom_histogram(
-    binwidth =  0.1,
+    binwidth = 0.1,
     fill = "#69b3a2",
     color = "#e9ecef"
   ) +
   ggtitle("Standard normal distribution")
-
 ```
 
 ```{r}
 # write your code here
 df <- read.csv("LifeSavings.csv")
 
-ggplot(df,
+ggplot(
+  df,
   aes(
     x = sr,
     y = reorder(country, sr)
@@ -110,7 +110,7 @@ ggplot(df,
 ```
 ```{r}
 df %>%
-  mutate(highlight = ifelse(pop75 < 1 & pop15 > 40 ,T, F)) %>%
+  mutate(highlight = ifelse(pop75 < 1 & pop15 > 40, T, F)) %>%
   ggplot(
     aes(
       x = sr,
@@ -118,7 +118,7 @@ df %>%
     )
   ) +
   geom_bar(stat = "identity", aes(fill = highlight)) +
-  guides(fill="none") + # hide the legend
+  guides(fill = "none") + # hide the legend
   scale_fill_manual(values = c("lightgray", "#F1A340")) +
   theme_classic() +
   labs(
@@ -136,7 +136,7 @@ plotdata <- data.frame(
   num = c(1600, 2100, 900, 600, 450)
 )
 # Write your code here
-df <- plotdata %>% 
+df <- plotdata %>%
   mutate(proportion = 100 * num / sum(num)) %>%
   arrange(desc(proportion))
 
