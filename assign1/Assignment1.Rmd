@@ -126,3 +126,42 @@ df %>%
     y = ""
   )
 ```
+
+
+```{r}
+# Define the dataframe named 'plotdata'
+# Write your code here
+plotdata <- data.frame(
+  pet = c("Dog", "Cat", "Psyduck", "Fragrant pig", "Lizard"),
+  num = c(1600, 2100, 900, 600, 450)
+)
+# Write your code here
+df <- plotdata %>% 
+  mutate(proportion = 100 * num / sum(num)) %>%
+  arrange(desc(proportion))
+
+df$label <- paste0(
+  round(df$proportion), "%"
+)
+
+ggplot(
+  df,
+  aes(
+    x = "",
+    y = proportion,
+    fill = reorder(pet, -proportion)
+  )
+) +
+  geom_bar(
+    # width = 1,
+    stat = "identity",
+    color = "black"
+  ) +
+  scale_fill_brewer("pet", direction = -1) +
+  geom_text(aes(label = label),
+    position = position_stack(vjust = 0.5)
+  ) +
+  coord_polar(theta = "y", start = 0, direction = 1) +
+  theme_void()
+```
+
