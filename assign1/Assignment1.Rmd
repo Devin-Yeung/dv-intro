@@ -70,3 +70,23 @@ newdata <- fuel_eco %>%
 
 print(newdata)
 ```
+
+```{r}
+# ggplot2 versions of plots
+library(ggplot2)
+# create dataset
+# write your code here
+df <- data.frame(
+  value = rnorm(100, mean = 0, sd = 1)
+)
+# plot histogram
+# write your code here
+ggplot(df, aes(x = value)) +
+  geom_histogram(
+    binwidth =  0.1,
+    fill = "#69b3a2",
+    color = "#e9ecef"
+  ) +
+  ggtitle("Standard normal distribution")
+
+```
