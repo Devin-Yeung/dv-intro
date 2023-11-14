@@ -4,7 +4,7 @@ output: html_document
 ---
 
 ```{r}
-# Construct a list 
+# Construct a list
 Zhuhai <- c("Mostly Sunny", 29, 14)
 Wuhan <- c("Mostly Sunny", 30, 19)
 Shanghai <- c("Cloudy", 26, 12)
@@ -26,14 +26,14 @@ print(weather)
 
 
 ```{r, warning=FALSE, message=FALSE}
-# Loading package 
+# Loading package
 library(dplyr)
 
-# Read fuel economy data from the file named 'fuel_economy.csv' and 
+# Read fuel economy data from the file named 'fuel_economy.csv' and
 # assign it to the variable 'fuel_eco'
 fuel_eco <- read.csv("fuel_economy.csv")
 
-# Select the variables manufacturer, model, year, and fl 
+# Select the variables manufacturer, model, year, and fl
 newdata <- fuel_eco %>%
   select(manufacturer, model, year, fl)
 
@@ -57,7 +57,7 @@ print(newdata)
 
 
 # Calculate the mean displacement (variable: displ) and mean highway miles per gallon (variable: hwy)
-newdata <- fuel_eco %>% 
+newdata <- fuel_eco %>%
   summarize(mean_displ = mean(displ), mean_hwy = mean(hwy))
 
 print(newdata)
@@ -67,6 +67,6 @@ newdata <- fuel_eco %>%
   filter(cyl == 8) %>%
   group_by(manufacturer) %>%
   summarize(mean_displ = mean(displ), mean_hwy = mean(hwy))
-  
+
 print(newdata)
 ```
