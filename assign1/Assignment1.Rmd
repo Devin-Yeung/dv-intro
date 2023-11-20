@@ -141,7 +141,7 @@ df <- plotdata %>%
   arrange(desc(proportion))
 
 df$label <- paste0(
-  round(df$proportion), "%"
+  round(df$proportion, 1), "%"
 )
 
 ggplot(
