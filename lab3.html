@@ -508,7 +508,7 @@ newdata &lt;- filter(
   height &gt;= 170
 )
 print(newdata)</code></pre>
-<pre><code>## # A tibble: 23 × 14
+<pre><code>## # A tibble: 24 × 14
 ##    name     height  mass hair_color skin_color eye_color birth_year sex   gender
 ##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
 ##  1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu…
@@ -520,8 +520,8 @@ print(newdata)</code></pre>
 ##  7 Wilhuff…    180    NA auburn, g… fair       blue            64   male  mascu…
 ##  8 Han Solo    180    80 brown      fair       brown           29   male  mascu…
 ##  9 Wedge A…    170    77 brown      fair       hazel           21   male  mascu…
-## 10 Jek Ton…    180   110 brown      fair       blue            NA   male  mascu…
-## # ℹ 13 more rows
+## 10 Palpati…    170    75 grey       pale       yellow          82   male  mascu…
+## # ℹ 14 more rows
 ## # ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
 ## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
@@ -589,7 +589,7 @@ newdata</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##   mean_ht mean_mass
 ##     &lt;dbl&gt;     &lt;dbl&gt;
-## 1    174.      97.3</code></pre>
+## 1    175.      97.3</code></pre>
 <pre class="r"><code># calculate mean height and weight by gender
 newdata &lt;- group_by(starwars, gender)
 newdata &lt;- summarize(newdata,
@@ -600,9 +600,9 @@ print(newdata)</code></pre>
 <pre><code>## # A tibble: 3 × 3
 ##   gender    mean_ht mean_wt
 ##   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
-## 1 feminine     165.    54.7
-## 2 masculine    177.   106. 
-## 3 &lt;NA&gt;         181.    48</code></pre>
+## 1 feminine     167.    54.7
+## 2 masculine    177.   107. 
+## 3 &lt;NA&gt;         175     81</code></pre>
 </div>
 <div id="using-pipes" class="section level2">
 <h2>2.5 Using pipes</h2>
