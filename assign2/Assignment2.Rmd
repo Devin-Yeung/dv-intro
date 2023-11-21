@@ -23,10 +23,12 @@ Hint: `geom_text()` may help you show the numbers in the bars. The two color val
 ggplot(df, aes(y = reorder(sector, n, sum, decreasing = TRUE), x = n, fill = sex)) +
   geom_bar(stat = "identity") +
   geom_text(aes(label = n), position = position_stack(vjust = 0.5), color = "black", size = 3) +
-  labs(title = "Number of Females and Males in Each Sector",
-       x = "Count",
-       y = "Sector") +
-  scale_fill_manual(values = c("F" = "#C73C68", "M" = "#B6C468")) 
-  # + theme_minimal()
+  labs(
+    title = "Number of Females and Males in Each Sector",
+    x = "Count",
+    y = "Sector"
+  ) +
+  scale_fill_manual(values = c("F" = "#C73C68", "M" = "#B6C468"))
+# + theme_minimal()
 ```
 
