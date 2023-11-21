@@ -442,6 +442,7 @@ ggparcoord(data,
   title = "",
   alphaLines = 1
 ) +
+  scale_color_manual(values = c("setosa" = "#69b3a2", "versicolor" = "#E8E8E8", "virginica" = "#E8E8E8")) +
   theme(
     legend.position = "top",
     plot.title = element_text(size = 10)
