@@ -1,4 +1,4 @@
 Package: dv-intro
 Title: Introduction to data visualization
 Version: 1.0.0
-Imports: readr, readxl, haven, dplyr, tidyr, VIM, ggplot2, rmarkdown, mosaicData, gapminder, carData
+Imports: readr, readxl, haven, dplyr, tidyr, VIM, ggplot2, rmarkdown, mosaicData, gapminder, carData, GGally, viridis
