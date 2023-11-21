@@ -58,6 +58,14 @@ data(Salaries, package = "carData")
 # plot experience vs. salary
 # (color represents rank and size represents service)
 # write your answer here
+ggplot(Salaries, aes(
+  x = yrs.since.phd,
+  y = salary,
+  color = rank,
+  size = yrs.service
+)) +
+  geom_point(alpha = .6) +
+  labs(title = "Academic salary by rank, years of service, and years since degree")
 ```
  
 
@@ -145,6 +153,10 @@ Use two variables `sex` and `rank` to define the facets.
 ```{r}
 # plot salary histograms by rank and sex
 # write your answer here
+ggplot(Salaries, aes(x = salary)) +
+  geom_histogram() +
+  facet_grid(rank~sex) +
+  labs(title = "Salary histograms by rank and sex")
 ```
 
 
