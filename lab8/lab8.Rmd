@@ -340,21 +340,24 @@ The plots should be exactly the same with the one in ggpairs.
 
 ```{r}
 # write your code here to draw plot(1,1) of ggpairs;
+ggplot(iris, aes(x = Sepal.Length)) +
+  geom_density()
 
-
-# writr your code here to draw plot(2,1) of ggpairs;
+# write your code here to draw plot(2,1) of ggpairs;
+ggplot(iris, aes(y = Sepal.Width, x = Sepal.Length)) +
+  geom_point()
 ```
 
 Uncomment following commands one by one for understanding the arguments of ggpairs.
 
 ```{r}
-# ggpairs(iris, mapping = aes(col=Species))
+ggpairs(iris, mapping = aes(col=Species))
 
-# ggpairs(iris, mapping = aes(col=Species),columns = 1:4)
+ggpairs(iris, mapping = aes(col=Species),columns = 1:4)
 
-# ggpairs(iris, mapping = aes(col=Species),columns = 1:4,upper = list(continuous = "points"))
+ggpairs(iris, mapping = aes(col=Species),columns = 1:4,upper = list(continuous = "points"))
 
-# ggpairs(iris, mapping = aes(col=Species),columns = 1:4,upper = list(continuous = "points"),legend = 1)
+ggpairs(iris, mapping = aes(col=Species),columns = 1:4,upper = list(continuous = "points"),legend = 1)
 
 ggpairs(iris, mapping = aes(col = Species), columns = 1:4, upper = list(continuous = "points"), legend = 2, progress = F)
 ```
