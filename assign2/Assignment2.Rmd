@@ -1,0 +1,32 @@
+---
+title: 'Assignment 2'
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+# Loading data
+data(CPS85, package = "mosaicData")
+
+df <- CPS85 %>%
+  group_by(sector, sex) %>%
+  summarise(n = n())
+
+print(df)
+```
+
+Construct a stacked bar chart to show the number of females and males in each sectors.
+
+Hint: `geom_text()` may help you show the numbers in the bars. The two color values `#C73C68` and `#B6C468` can help.
+```{r}
+ggplot(df, aes(y = reorder(sector, n, sum, decreasing = TRUE), x = n, fill = sex)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = n), position = position_stack(vjust = 0.5), color = "black", size = 3) +
+  labs(title = "Number of Females and Males in Each Sector",
+       x = "Count",
+       y = "Sector") +
+  scale_fill_manual(values = c("F" = "#C73C68", "M" = "#B6C468")) 
+  # + theme_minimal()
+```
+
