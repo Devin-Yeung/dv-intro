@@ -30,4 +30,20 @@ ggplot(df, aes(y = reorder(sector, n, sum, decreasing = TRUE), x = n, fill = sex
   scale_fill_manual(values = c("F" = "#C73C68", "M" = "#B6C468"))
 # + theme_minimal()
 ```
+Based on the dataset SaratogaHouses from package mosaicData, please draw a scatterplot for house ages and prices with quadratic line of best fit.
 
+Hint: `geom_smooth()` may help you to construct the linear regression line. You can specify the points with `size = 1`, `alpha = 0.4`,
+the fitting line with `size = 0.5`, `color = "tomato"`.
+
+```{r}
+library(mosaicData)
+data(SaratogaHouses)
+
+ggplot(SaratogaHouses, aes(x = age, y = price)) +
+  geom_point(size = 1, alpha = 0.4, color = "blue") +
+  geom_smooth(method = "lm", formula = y ~ poly(x, 1), se = TRUE, size = 0.5, color = "tomato") +
+  labs(title = "Age vs. Price",
+       subtitle = "Houses in Saratoga",
+       x = "Age of House",
+       y = "Price")
+```
