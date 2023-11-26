@@ -40,7 +40,7 @@ library(mosaicData)
 data(SaratogaHouses)
 
 ggplot(SaratogaHouses, aes(x = age, y = price)) +
-  geom_point(size = 1, alpha = 0.4, color = "blue") +
+  geom_point(size = 1, alpha = 0.4, color = "cornflowerblue") +
   geom_smooth(method = "lm", formula = y ~ poly(x, 1), se = TRUE, size = 0.5, color = "tomato") +
   labs(title = "Age vs. Price",
        subtitle = "Houses in Saratoga",
