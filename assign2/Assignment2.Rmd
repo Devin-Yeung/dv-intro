@@ -153,6 +153,7 @@ Base on the data set, we can abstract the following tasks:
 -   How the number of rooms affect the price of the properties?
 -   What impact does the presence of a garage have on the price?
 -   Find out the relationship between the price and other variables
+-   Find the distribution of number of rooms over Pool and Garage
 
 Before the data visualization, let's do the data preprocessing
 
@@ -227,3 +228,32 @@ ggpairs(df)
 ```
 
 From the graph we can notice that the presence of garage and the number of bedrooms contribute a lot to the price of the property, and the price is also positive correlated to the size of the room and **negative** correlated to the distance to center of the city.
+
+### Distribution of Rooms
+
+**Design Thoughts:**
+
+-   **Visual Element:** A stacked bar plot is chosen to represent the percentage distribution of each number of rooms, with segments indicating the presence or absence of a pool and garage.
+
+-   **X-axis:** Number of Rooms.
+
+-   **Y-axis:** Percentage.
+
+-   **Hue (Fill):** Stacked segments represent the breakdown of Pool and Garage.
+
+```{r}
+# Data Preprocessing
+room_percentage <- df %>%
+  group_by(Bedrooms, Pool, Garage) %>%
+  summarise(Count = n()) %>%
+  group_by(Bedrooms) %>%
+  mutate(Percentage = (Count / sum(Count)) * 100)
+
+# Create a stacked bar plot
+ggplot(room_percentage, aes(x = factor(Bedrooms), y = Percentage, fill = interaction(Pool, Garage))) +
+  geom_bar(stat = "identity") +
+  labs(x = "Number of Rooms", y = "Percentage") +
+  ggtitle("Percentage of Each Number of Rooms with Pool and Garage Breakdown")
+```
+
+From the graph we can notice that, those properties who have a lot of rooms, usually have garage.
