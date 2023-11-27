@@ -77,15 +77,14 @@ Hint: Please install the package CGPfunctions if you haven’t installed.
 ```{r}
 data(newgdp, package = "CGPfunctions")
 
-df <- newgdp %>% 
+df <- newgdp %>%
   filter(Year == "Year1979") %>%
   mutate(GDP = GDP / 100)
 
 ggplot(df, aes(
-    x = GDP, 
-    y = reorder(Country, GDP)
-  )
-) +
+  x = GDP,
+  y = reorder(Country, GDP)
+)) +
   geom_segment(
     aes(
       x = 0.2,
@@ -95,7 +94,7 @@ ggplot(df, aes(
     ),
     color = "grey"
   ) +
-  geom_point(color="pink", size=3) +
+  geom_point(color = "pink", size = 3) +
   scale_x_continuous(labels = scales::percent_format()) +
   labs(
     x = "",
