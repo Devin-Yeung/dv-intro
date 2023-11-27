@@ -72,16 +72,18 @@ ggplot(SaratogaHouses, aes(x = factor(rooms), y = price)) +
   scale_y_continuous(labels = scales::dollar_format()) +
   theme_minimal()
 ```
+
 Q4: Please plot the Cleveland dot chart for the percentage of receipts in GDP by country.
 The datasset `newgdp` from the package `CGPfunctions` records current receipts of fifteen national governments as a percentage of gross domestic product.
 You can read more detail by running the code `??newgdp` in the console.
 
 Hint: Please install the package CGPfunctions if you haven’t installed.
 (No need to write the install code in the R code chunk below.) The range of x is (0.2, 0.6).
+
 ```{r}
 data(newgdp, package = "CGPfunctions")
 
-df <- newgdp %>%
+  df <- newgdp %>%
   filter(Year == "Year1979") %>%
   mutate(GDP = GDP / 100)
 
@@ -105,6 +107,7 @@ ggplot(df, aes(
     y = "",
     title = "Percentage of Receipts in GDP by Country"
   ) +
+  coord_cartesian(xlim = c(0.2, 0.6)) +
   theme_light() +
   theme(
     panel.grid.major = element_blank(),
@@ -127,5 +130,50 @@ Design your visualization according to the design principles and give your justi
 Implement your visualization by R. Please write the annotations for each step.
 
 ```{r}
-df <- read.table("Real-Estate.txt", header = TRUE)
+df <- read.table("Real-Estate.txt", header = TRUE) %>%
+  mutate(Pool = ifelse(Pool == 1, "With Pool", "Without Pool")) %>%
+  mutate(Garage = ifelse(Garage == 1, "With Garage", "Without Garage"))
+      
+ggplot(df, aes(x = Price)) +
+  geom_histogram() +
+  facet_grid(Pool ~ Garage) +
+  labs(title = "Salary histograms by rank")
+
+ggplot(df, aes(x = Size, y = Price, color = Pool)) +
+  geom_point(
+    size = 2,
+    alpha = .5
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = FALSE,
+    linewidth = 1.5
+  )
+
+```
+
+
+Number of rooms V.S. Price
+```{r}
+ggplot(df, aes(x = factor(Bedrooms), y = Price)) +
+  geom_boxplot(alpha = 0.5, notch = F, fill = "cornflowerblue") +
+  labs(
+    title = "House price distribution by number of rooms",
+    x = "Number of rooms",
+    y = "Price"
+  ) +
+  scale_y_continuous(labels = scales::dollar_format()) +
+  theme_minimal()
+```
+How Garage affect the price of the room
+
+```{r}
+ggplot(df, aes(x = Price, fill = Garage)) +
+  geom_density(alpha = 0.5)
+```
+
+
+```{r}
+library(GGally)
+ggpairs(df)
 ```
