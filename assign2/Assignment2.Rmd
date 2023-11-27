@@ -42,10 +42,12 @@ data(SaratogaHouses)
 ggplot(SaratogaHouses, aes(x = age, y = price)) +
   geom_point(size = 1, alpha = 0.4, color = "cornflowerblue") +
   geom_smooth(method = "lm", formula = y ~ poly(x, 1), se = TRUE, size = 0.5, color = "tomato") +
-  labs(title = "Age vs. Price",
-       subtitle = "Houses in Saratoga",
-       x = "Age of House",
-       y = "Price") +
+  labs(
+    title = "Age vs. Price",
+    subtitle = "Houses in Saratoga",
+    x = "Age of House",
+    y = "Price"
+  ) +
   scale_y_continuous(labels = scales::dollar_format()) +
   theme_minimal()
 ```
@@ -53,9 +55,11 @@ ggplot(SaratogaHouses, aes(x = age, y = price)) +
 # Create a boxplot for house prices by the number of rooms
 ggplot(SaratogaHouses, aes(x = factor(rooms), y = price)) +
   geom_boxplot(alpha = 0.5, notch = TRUE, fill = "cornflowerblue") +
-  labs(title = "House price distribution by number of rooms",
-       x = "Number of rooms",
-       y = "Price") +
+  labs(
+    title = "House price distribution by number of rooms",
+    x = "Number of rooms",
+    y = "Price"
+  ) +
   scale_y_continuous(labels = scales::dollar_format()) +
   theme_minimal()
 ```
