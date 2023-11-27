@@ -47,3 +47,13 @@ ggplot(SaratogaHouses, aes(x = age, y = price)) +
        x = "Age of House",
        y = "Price")
 ```
+```{r}
+# Create a boxplot for house prices by the number of rooms
+ggplot(SaratogaHouses, aes(x = factor(rooms), y = price)) +
+  geom_boxplot(alpha = 0.5, notch = TRUE, fill = "cornflowerblue") +
+  labs(title = "House price distribution by number of rooms",
+       x = "Number of rooms",
+       y = "Price") +
+  scale_y_continuous(labels = scales::dollar_format()) +
+  theme_minimal()
+```
