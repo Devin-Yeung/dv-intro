@@ -15,10 +15,10 @@ df <- CPS85 %>%
 
 print(df)
 ```
+Q1: Construct a stacked bar chart to show the number of females and males in each sectors.
 
-Construct a stacked bar chart to show the number of females and males in each sectors.
-
-Hint: `geom_text()` may help you show the numbers in the bars. The two color values `#C73C68` and `#B6C468` can help.
+Hint: `geom_text()` may help you show the numbers in the bars.
+The two color values `#C73C68` and `#B6C468` can help.
 ```{r}
 ggplot(df, aes(y = reorder(sector, n, sum, decreasing = TRUE), x = n, fill = sex)) +
   geom_bar(stat = "identity") +
@@ -30,11 +30,12 @@ ggplot(df, aes(y = reorder(sector, n, sum, decreasing = TRUE), x = n, fill = sex
   scale_fill_manual(values = c("F" = "#C73C68", "M" = "#B6C468"))
 # + theme_minimal()
 ```
-Based on the dataset SaratogaHouses from package mosaicData, please draw a scatterplot for house ages and prices with quadratic line of best fit.
+Q2: Based on the dataset `SaratogaHouses` from package `mosaicData`,
+please draw a scatterplot for house ages and prices with quadratic line of best fit.
 
-Hint: `geom_smooth()` may help you to construct the linear regression line. You can specify the points with `size = 1`, `alpha = 0.4`,
+Hint: `geom_smooth()` may help you to construct the linear regression line.
+You can specify the points with `size = 1`, `alpha = 0.4`,
 the fitting line with `size = 0.5`, `color = "tomato"`.
-
 ```{r}
 library(mosaicData)
 data(SaratogaHouses)
@@ -51,6 +52,10 @@ ggplot(SaratogaHouses, aes(x = age, y = price)) +
   scale_y_continuous(labels = scales::dollar_format()) +
   theme_minimal()
 ```
+Q3: Based on the dataset `SaratogaHouses` from package `mosaicData`,
+please draw the boxplot for the house price by number of rooms.
+
+Hint: Transparency of boxplot is specified as `alpha = 0.5`.
 ```{r}
 # Create a boxplot for house prices by the number of rooms
 ggplot(SaratogaHouses, aes(x = factor(rooms), y = price)) +
