@@ -136,28 +136,23 @@ The data file `Real-Estate.txt` contains information on the homes sold in the De
 | Garage   | Whether is garage attached (yes or no)           |
 | Baths    | Number of bathrooms                              |
 
-a) Please analyze the data and abstract at least 2 tasks.
+a)  Please analyze the data and abstract at least 2 tasks.
 
-b) Design your visualization according to the design principles and give your justification.
-Please write your design thoughts clearly.
+b)  Design your visualization according to the design principles and give your justification.
+    Please write your design thoughts clearly.
 
-c) Implement your visualization by R.
-Please write the annotations for each step.
+c)  Implement your visualization by R.
+    Please write the annotations for each step.
 
-## Analyze: 
+## Analyze:
 
 The data set have the shape of 105 rows and 8 columns, including 2 categorical feature and 6 numerical feature.
 
 Base on the data set, we can abstract the following tasks:
 
 -   How the number of rooms affect the price of the properties?
-
-```{=html}
-<!-- -->
-```
 -   What impact does the presence of a garage have on the price?
-
--   Find out the main factors affect the price.
+-   Find out the relationship between the price and other variables
 
 Before the data visualization, let's do the data preprocessing
 
@@ -165,7 +160,8 @@ Before the data visualization, let's do the data preprocessing
 # Data Preprocessing: Convert Pool and Garage to categorical data
 df <- read.table("Real-Estate.txt", header = TRUE) %>%
   mutate(Pool = ifelse(Pool == 1, "With Pool", "Without Pool")) %>%
-  mutate(Garage = ifelse(Garage == 1, "With Garage", "Without Garage"))
+  mutate(Garage = ifelse(Garage == 1, "With Garage", "Without Garage")) %>%
+  mutate(Price = Price * 1000) # align the price
 ```
 
 ## Number of rooms V.S. Price
@@ -178,7 +174,7 @@ df <- read.table("Real-Estate.txt", header = TRUE) %>%
 
 -   **Y-axis:** Property Prices.
 
--   **Justification:** Boxplots are effective for displaying the central tendency, spread, and potential outliers in a dataset.
+-   **Justification:** Box plots are effective for displaying the central tendency, spread, and potential outliers in a data set.
     They are particularly useful for comparing the distribution of a numerical variable (price) across different categories (number of rooms).
 
 ```{r}
@@ -192,6 +188,8 @@ ggplot(df, aes(x = factor(Bedrooms), y = Price)) +
   scale_y_continuous(labels = scales::dollar_format()) +
   theme_minimal()
 ```
+
+From the box plot we can notice that as number of rooms grows larger, the properties usually can sell a higher price.
 
 ### How Garage affect the price of the room
 
@@ -210,18 +208,22 @@ ggplot(df, aes(x = Price, fill = Garage)) +
   geom_density(alpha = 0.5)
 ```
 
-### What's the main factor affect the price
+From the graph we can obtain that when the garage presence, property usually can sell a higher price.
+
+### What's the relationship between the price and other variables
 
 **Design Thoughts:**
 
--   **Visual Element:** A pair plot (scatterplot matrix) is suitable for visualizing relationships between multiple variables.
+-   **Visual Element:** A pair plot is suitable for visualizing relationships between multiple variables.
 
 -   **Variables:** Price, Bedrooms, Size, Distance, and Baths.
 
 -   **Justification:** A pair plot allows us to examine potential correlations and patterns between the main factors that could affect property prices.
-    Scatterplots show the relationship between two numerical variables, and histograms show the distribution of individual variables.
+    Pair plot show the relationship between two numerical variables, and histograms show the distribution of individual variables.
 
 ```{r, message=FALSE}
 library(GGally)
 ggpairs(df)
 ```
+
+From the graph we can notice that the presence of garage and the number of bedrooms contribute a lot to the price of the property, and the price is also positive correlated to the size of the room and **negative** correlated to the distance to center of the city.
