@@ -83,7 +83,7 @@ Hint: Please install the package CGPfunctions if you haven’t installed.
 ```{r}
 data(newgdp, package = "CGPfunctions")
 
-  df <- newgdp %>%
+df <- newgdp %>%
   filter(Year == "Year1979") %>%
   mutate(GDP = GDP / 100)
 
@@ -133,7 +133,7 @@ Implement your visualization by R. Please write the annotations for each step.
 df <- read.table("Real-Estate.txt", header = TRUE) %>%
   mutate(Pool = ifelse(Pool == 1, "With Pool", "Without Pool")) %>%
   mutate(Garage = ifelse(Garage == 1, "With Garage", "Without Garage"))
-      
+
 ggplot(df, aes(x = Price)) +
   geom_histogram() +
   facet_grid(Pool ~ Garage) +
@@ -149,7 +149,6 @@ ggplot(df, aes(x = Size, y = Price, color = Pool)) +
     se = FALSE,
     linewidth = 1.5
   )
-
 ```
 
 
