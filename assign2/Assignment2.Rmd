@@ -111,3 +111,17 @@ ggplot(df, aes(
     axis.ticks.x = element_blank()
   )
 ```
+
+Q5  A tiny project
+
+The data file `Real-Estate.txt` contains information on the homes sold in the Denver area during the year 2003.
+
+Please analyze the data and abstract at least 2 tasks.
+
+Design your visualization according to the design principles and give your justification. Please write your design thoughts clearly.
+
+Implement your visualization by R. Please write the annotations for each step.
+
+```{r}
+df <- read.table("Real-Estate.txt", header = TRUE)
+```
