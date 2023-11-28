@@ -256,7 +256,7 @@ Specify the `frame` attribute to "year" in aes for geom_point to make animation 
 
 ```{r}
 # write your answer here
-gg <- ggplot(gapminder, aes(gdpPercap, lifeExp, color = continent, frame=year)) +
+gg <- ggplot(gapminder, aes(gdpPercap, lifeExp, color = continent, frame = year)) +
   geom_point(aes(size = pop)) +
   scale_x_log10()
 ggplotly(gg)
