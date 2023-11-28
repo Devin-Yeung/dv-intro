@@ -108,6 +108,7 @@ p <- ggplot(mpg, aes(
   theme_bw()
 
 # write your answer here
+ggplotly(p, tooltip = c("mylabel"))
 ```
 
 
@@ -141,6 +142,10 @@ Recall what we've learned in lab7 and change the position of geom_bar to "dodge"
 
 ```{r}
 # write your answer here
+p <- ggplot(mpg, aes(x = manufacturer, fill = drv)) +
+  geom_bar(position = "dodge") +
+  ggtitle("Distribution for Cars based on Drive Type and Manufacturers")
+ggplotly(p)
 ```
 
 ### Interactive bubble graph
@@ -204,6 +209,7 @@ Specify the `nrows` of subplot to 3, and heights to c(0.2,0.3,0.5).
 
 ```{r}
 # write your answer here
+subplot(plots, nrows = 3, shareX = TRUE, titleX = FALSE, heights = c(0.2, 0.3, 0.5))
 ```
 
 
@@ -250,6 +256,10 @@ Specify the `frame` attribute to "year" in aes for geom_point to make animation 
 
 ```{r}
 # write your answer here
+gg <- ggplot(gapminder, aes(gdpPercap, lifeExp, color = continent, frame=year)) +
+  geom_point(aes(size = pop)) +
+  scale_x_log10()
+ggplotly(gg)
 ```
 
 
