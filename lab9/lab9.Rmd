@@ -337,6 +337,21 @@ Change the tooltip to have the same context as in first in-class exercise.
 
 ```{r}
 # write your answer here
+mpg <- mpg %>%
+  mutate(mylabel = paste(
+    "This is a", manufacturer, model, "\n",
+    "released in", year, "."
+  ))
+
+p <- ggplot(mpg, aes(
+  x = displ,
+  y = hwy,
+  color = class,
+  tooltip = mylabel
+)) +
+  geom_point_interactive()
+
+girafe(ggobj = p)
 ```
 
 ## 2.3 Highcharter
