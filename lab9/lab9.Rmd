@@ -22,17 +22,21 @@ Mousing over a point displays information about that point. Clicking on a legend
 
 ```{r}
 # create plotly graph.
-#install.packages("plotly",repos = "http://cran.us.r-project.org")
+# install.packages("plotly",repos = "http://cran.us.r-project.org")
 library(ggplot2)
 library(plotly)
 
-p <- ggplot(mpg, aes(x=displ, 
-                     y=hwy, 
-                     color=class)) +
-  geom_point(size=3) +
-  labs(x = "Engine displacement",
-       y = "Highway Mileage",
-       color = "Car Class") +
+p <- ggplot(mpg, aes(
+  x = displ,
+  y = hwy,
+  color = class
+)) +
+  geom_point(size = 3) +
+  labs(
+    x = "Engine displacement",
+    y = "Highway Mileage",
+    color = "Car Class"
+  ) +
   theme_bw()
 
 ggplotly(p)
@@ -47,16 +51,20 @@ Add `ggplotly(p, tooltip = c("label1", "label2", "label3"))` to the program to s
 library(ggplot2)
 library(plotly)
 
-p <- ggplot(mpg, aes(x=displ, 
-                     y=hwy, 
-                     color=class,
-                     label1 = manufacturer,
-                     label2 = model,
-                     label3 = year)) +
-  geom_point(size=3) +
-  labs(x = "Engine displacement",
-       y = "Highway Mileage",
-       color = "Car Class") +
+p <- ggplot(mpg, aes(
+  x = displ,
+  y = hwy,
+  color = class,
+  label1 = manufacturer,
+  label2 = model,
+  label3 = year
+)) +
+  geom_point(size = 3) +
+  labs(
+    x = "Engine displacement",
+    y = "Highway Mileage",
+    color = "Car Class"
+  ) +
   theme_bw()
 
 # add the code here
@@ -80,21 +88,26 @@ library(plotly)
 library(dplyr)
 
 mpg <- mpg %>%
-  mutate(mylabel = paste("This is a", manufacturer, model, "\n",
-                         "released in", year, "."))
+  mutate(mylabel = paste(
+    "This is a", manufacturer, model, "\n",
+    "released in", year, "."
+  ))
 
-p <- ggplot(mpg, aes(x=displ, 
-                     y=hwy, 
-                     color=class,
-                     text = mylabel)) +
-  geom_point(size=3) +
-  labs(x = "Engine displacement",
-       y = "Highway Mileage",
-       color = "Car Class") +
+p <- ggplot(mpg, aes(
+  x = displ,
+  y = hwy,
+  color = class,
+  text = mylabel
+)) +
+  geom_point(size = 3) +
+  labs(
+    x = "Engine displacement",
+    y = "Highway Mileage",
+    color = "Car Class"
+  ) +
   theme_bw()
 
 # write your answer here
-
 ```
 
 
@@ -102,7 +115,8 @@ Let's add fitting curves to the plot.
 
 ```{r}
 p <- ggplot(mpg, aes(x = displ, y = hwy)) +
-   geom_point() + geom_smooth()
+  geom_point() +
+  geom_smooth()
 ggplotly(p)
 ```
 
@@ -115,10 +129,10 @@ Now let's draw a bar chart and make it interactive.
 To create a non-interactive bar graph using the “mpg” dataset, we use the geom_bar function. 
 
 ```{r}
-p2 <- ggplot(mpg, aes(x = manufacturer, fill = drv)) + geom_bar()+
-ggtitle("Distribution for Cars based on Drive Type and Manufacturers")
+p2 <- ggplot(mpg, aes(x = manufacturer, fill = drv)) +
+  geom_bar() +
+  ggtitle("Distribution for Cars based on Drive Type and Manufacturers")
 ggplotly(p2)
-
 ```
 
 $\color{red}{\text{In-class exercise}}$
@@ -127,7 +141,6 @@ Recall what we've learned in lab7 and change the position of geom_bar to "dodge"
 
 ```{r}
 # write your answer here
-
 ```
 
 ### Interactive bubble graph
@@ -135,22 +148,23 @@ Recall what we've learned in lab7 and change the position of geom_bar to "dodge"
 Next, we create a bubble graph using the airquality dataset in R. We create a bubble plot using the geom_point(), adding the size as the third dimension.  
 
 ```{r}
-airQuality_plot <- ggplot(airquality, aes(x = Day, y = Ozone, 
-                                          color= as.factor(Month),
-                                          text = paste("Month:", Month))) +
-       geom_point(size = airquality$Wind,alpha=0.6) +
-       ggtitle("Air Quality in New York by Day") +
-       labs(x = "Day of the month", y = "Ozone (ppb)", color="Month") +
-       scale_x_continuous(breaks = seq(1, 31, 5))+
-       scale_size(range = c(1, 10))
+airQuality_plot <- ggplot(airquality, aes(
+  x = Day, y = Ozone,
+  color = as.factor(Month),
+  text = paste("Month:", Month)
+)) +
+  geom_point(size = airquality$Wind, alpha = 0.6) +
+  ggtitle("Air Quality in New York by Day") +
+  labs(x = "Day of the month", y = "Ozone (ppb)", color = "Month") +
+  scale_x_continuous(breaks = seq(1, 31, 5)) +
+  scale_size(range = c(1, 10))
 ```
 
 
 However, bubble graphs are even more insightful when they are interactive. The tooltip is to specify the specific information we want to display on the plot.
 
 ```{r}
-
-ggplotly(airQuality_plot, tooltip=c("text","x","y"))
+ggplotly(airQuality_plot, tooltip = c("text", "x", "y"))
 ```
 
 
@@ -162,26 +176,25 @@ The `subplot()` function provides a flexible interface for merging multiple **pl
 
 ```{r}
 library(plotly)
-p1 <- plot_ly(economics, x = ~date, y = ~unemploy) %>% 
+p1 <- plot_ly(economics, x = ~date, y = ~unemploy) %>%
   add_lines(name = "unemploy")
-p2 <- plot_ly(economics, x = ~date, y = ~uempmed) %>% 
+p2 <- plot_ly(economics, x = ~date, y = ~uempmed) %>%
   add_lines(name = "uempmed")
-subplot(p1, p2) 
+subplot(p1, p2)
 ```
 
 Although subplot() accepts an arbitrary number of plot objects, passing a list of plots can save typing and redundant code when dealing with a large number of plots. The following figure shows one time series for each variable in the economics dataset and share the x-axis so that zoom/pan events are synchronized across each series:
 
 ```{r}
-#Create a vector vars containing the names of all variables in the "economics" dataset except for "date."
+# Create a vector vars containing the names of all variables in the "economics" dataset except for "date."
 vars <- setdiff(names(economics), "date")
-#use lapply to iterate over each variable in vars. 
-#For each variable, it creates a line plot using plot_ly, specifying the x-axis as "date" and the y-axis using a formula constructed from the variable name. 
+# use lapply to iterate over each variable in vars.
+# For each variable, it creates a line plot using plot_ly, specifying the x-axis as "date" and the y-axis using a formula constructed from the variable name.
 plots <- lapply(vars, function(var) {
   plot_ly(economics, x = ~date, y = as.formula(paste0("~", var))) %>%
     add_lines(name = var)
 })
 subplot(plots, nrows = length(plots), shareX = TRUE, titleX = FALSE)
-
 ```
 
 
@@ -191,14 +204,13 @@ Specify the `nrows` of subplot to 3, and heights to c(0.2,0.3,0.5).
 
 ```{r}
 # write your answer here
-
 ```
 
 
 This is a visualization of bi-variate normal distribution:
 
 ```{r}
-#install.packages("mvtnorm",repos = "http://cran.us.r-project.org")
+# install.packages("mvtnorm",repos = "http://cran.us.r-project.org")
 # draw random values from correlated bi-variate normal distribution
 
 s <- matrix(c(1, 0.3, 0.3, 1), nrow = 2)
@@ -206,10 +218,10 @@ m <- mvtnorm::rmvnorm(1e5, sigma = s)
 x <- m[, 1]
 y <- m[, 2]
 s <- subplot(
-  plot_ly(x = x, color = I("red")), 
-  plotly_empty(), 
+  plot_ly(x = x, color = I("red")),
+  plotly_empty(),
   plot_ly(x = x, y = y, color = I("black")) %>%
-    add_histogram2dcontour(colorscale = "Viridis"), 
+    add_histogram2dcontour(colorscale = "Viridis"),
   plot_ly(y = y, color = I("blue")),
   nrows = 2, heights = c(0.2, 0.8), widths = c(0.8, 0.2), margin = 0,
   shareX = TRUE, shareY = TRUE, titleX = FALSE, titleY = FALSE
@@ -224,7 +236,6 @@ layout(s, showlegend = FALSE)
 Both `plot_ly()` and `ggplotly()` support key frame animations through the `frame` argument/aesthetic. They also support an `ids` argument/aesthetic to ensure smooth transitions between objects with the same id (which helps facilitate object constancy). Following figure recreates the famous gapminder animation of the evolution in the relationship between GDP per capita and life expectancy evolved over time (Bryan 2015). The data is recorded on a yearly basis, so the year is assigned to `frame`, and each point in the scatterplot represents a country, so the country is assigned to ids, ensuring a smooth transition from year to year for a given country.
 
 ```{r}
-
 data(gapminder, package = "gapminder")
 gg <- ggplot(gapminder, aes(gdpPercap, lifeExp, color = continent)) +
   geom_point(aes(size = pop)) +
@@ -239,7 +250,6 @@ Specify the `frame` attribute to "year" in aes for geom_point to make animation 
 
 ```{r}
 # write your answer here
-
 ```
 
 
@@ -254,7 +264,7 @@ library(plotly)
 mtcars %>%
   highlight_key(~cyl) %>%
   plot_ly(
-    x = ~wt, y = ~mpg, text = ~cyl, mode = "markers+text", 
+    x = ~wt, y = ~mpg, text = ~cyl, mode = "markers+text",
     textposition = "top", hoverinfo = "x+y"
   ) %>%
   highlight(on = "plotly_hover", off = "plotly_doubleclick")
@@ -263,8 +273,9 @@ mtcars %>%
 
 ```{r}
 g <- highlight_key(gapminder, ~continent)
-gg <- ggplot(g, aes(gdpPercap, lifeExp, 
-  color = continent, frame = year)) +
+gg <- ggplot(g, aes(gdpPercap, lifeExp,
+  color = continent, frame = year
+)) +
   geom_point(aes(size = pop, ids = country)) +
   geom_smooth(se = FALSE, method = "lm") +
   scale_x_log10()
@@ -274,9 +285,11 @@ highlight(ggplotly(gg), "plotly_hover")
 
 ```{r}
 m <- highlight_key(mpg, ~class)
-p1 <- ggplot(m, aes(displ, fill = class)) + geom_density()
-p2 <- ggplot(m, aes(displ, hwy, fill = class)) + geom_point()
-subplot(p1, p2) %>% 
+p1 <- ggplot(m, aes(displ, fill = class)) +
+  geom_density()
+p2 <- ggplot(m, aes(displ, hwy, fill = class)) +
+  geom_point()
+subplot(p1, p2) %>%
   hide_legend() %>%
   highlight("plotly_hover")
 ```
@@ -289,17 +302,19 @@ While **Plotly** is the most popular approach for turning static ggplot2 graphs 
 
 ## 2.1 Ggiraph
 ```{r}
-#install.packages("ggiraph",repos = "http://cran.us.r-project.org")
+# install.packages("ggiraph",repos = "http://cran.us.r-project.org")
 
 library(ggplot2)
 library(ggiraph)
 
 
 
-p <- ggplot(mpg, aes(x=displ, 
-                y=hwy, 
-                color=class,
-                tooltip = manufacturer)) +
+p <- ggplot(mpg, aes(
+  x = displ,
+  y = hwy,
+  color = class,
+  tooltip = manufacturer
+)) +
   geom_point_interactive()
 
 girafe(ggobj = p)
@@ -311,9 +326,7 @@ $\color{red}{\text{In-class exercise}}$
 Change the tooltip to have the same context as in first in-class exercise.
 
 ```{r}
-#write your answer here
-
-
+# write your answer here
 ```
 
 ## 2.3 Highcharter
@@ -323,7 +336,7 @@ The **highcharter** package provides access to the Highcharts (https://www.highc
 Let’s use highcharter to create an interactive line chart displaying life expectancy over time for several Asian countries. The data come from the Gapminder dataset.
 
 ```{r}
-#install.packages("highcharter",repos = "http://cran.us.r-project.org")
+# install.packages("highcharter",repos = "http://cran.us.r-project.org")
 # create interactive line chart
 library(highcharter)
 
@@ -339,20 +352,32 @@ library(tidyr)
 plotdata <- spread(asia, country, lifeExp)
 
 # generate graph
-h <- highchart() %>% 
-  hc_xAxis(categories = plotdata$year) %>% 
-  hc_add_series(name = "Afghanistan", 
-                data = plotdata$Afghanistan) %>% 
-  hc_add_series(name = "Bahrain", 
-                data = plotdata$Bahrain) %>%
-  hc_add_series(name = "Cambodia", 
-                data = plotdata$Cambodia) %>%
-  hc_add_series(name = "China", 
-                data = plotdata$China) %>%
-  hc_add_series(name = "India", 
-                data = plotdata$India) %>%
-  hc_add_series(name = "Iran", 
-                data = plotdata$Iran)
+h <- highchart() %>%
+  hc_xAxis(categories = plotdata$year) %>%
+  hc_add_series(
+    name = "Afghanistan",
+    data = plotdata$Afghanistan
+  ) %>%
+  hc_add_series(
+    name = "Bahrain",
+    data = plotdata$Bahrain
+  ) %>%
+  hc_add_series(
+    name = "Cambodia",
+    data = plotdata$Cambodia
+  ) %>%
+  hc_add_series(
+    name = "China",
+    data = plotdata$China
+  ) %>%
+  hc_add_series(
+    name = "India",
+    data = plotdata$India
+  ) %>%
+  hc_add_series(
+    name = "Iran",
+    data = plotdata$Iran
+  )
 
 h
 ```
