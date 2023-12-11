@@ -1,0 +1,66 @@
+---
+title: "DashBoard"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    theme: default
+    source_code: embed
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(flexdashboard)
+library(dplyr)
+library(plotly)
+df <- read.table("Baseball2010.txt", header = T)
+```
+
+
+Comparing Salary
+==========
+
+Row
+------------------------------------------
+### Avg Team Salary for the American League
+```{r}
+valueBox(round(mean(df$Salary[df$League == 1]), 2), color = "pink")
+```
+### Average Team Salary (Mil$)
+```{r}
+gauge(round(mean(df$Salary),
+            digits = 2),
+      min = 0,
+      max = max(df$Salary))
+```
+
+### Avg Team Salary for the National League
+```{r}
+valueBox(round(mean(df$Salary[df$League == 0]), 2), color = "dodgerblue")
+```
+Row
+------------------------------------------
+### Team Salary for American League
+```{r}
+p <- df %>% filter(League == 1) %>%
+  ggplot(aes(x =reorder(Team, Salary, decreasing = T) , y = Salary)) +
+  geom_bar(stat = "identity", fill = "pink", alpha = 0.8) +
+  labs(title = "Team Salary Comparison for the American League",
+       x = "Team",
+       y = "Total 2010 Team Salary ($Mil)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  coord_cartesian(ylim = c(0, max(df$Salary))) 
+ggplotly(p)
+```
+
+### Team Salary for the National League
+```{r}
+p <- df %>% filter(League == 0) %>%
+ggplot(aes(x =reorder(Team, Salary, decreasing = T) , y = Salary)) +
+  geom_bar(stat = "identity", fill = "dodgerblue", alpha = 0.5) +
+  labs(title = "Team Salary Comparison for the National League",
+       x = "Team",
+       y = "Total 2010 Team Salary ($Mil)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  coord_cartesian(ylim = c(0, max(df$Salary)))
+ggplotly(p)
+```
