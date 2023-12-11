@@ -64,3 +64,39 @@ ggplot(aes(x =reorder(Team, Salary, decreasing = T) , y = Salary)) +
   coord_cartesian(ylim = c(0, max(df$Salary)))
 ggplotly(p)
 ```
+
+# Win Rate
+
+Row
+------------------------------------------
+### Relationship between Wins and Batting Average
+```{r}
+p <- ggplot(df, aes(x = Wins, y = Batting)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  
+  labs(title = "Relationship between Wins and Batting Average",
+       x = "Number of Wins",
+       y = "Batting Average")
+ggplotly(p)
+```
+### Relationship between Wins and HR
+```{r}
+p <- ggplot(df, aes(x = Wins, y = HR)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  
+  labs(title = "Relationship between Wins and HR",
+       x = "Number of Wins",
+       y = "Batting Average")
+ggplotly(p)
+```
+
+### Relationship between Wins and Errors
+```{r}
+p <- ggplot(df, aes(x = Wins, y = Errors)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  
+  labs(title = "Relationship between Wins and Errors",
+       x = "Number of Wins",
+       y = "Batting Average")
+ggplotly(p)
+```
